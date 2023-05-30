@@ -97,7 +97,7 @@ class UserController {
 			let count=Object.keys(response).length;
 			return {
 				response: response,
-				count:body
+				count:count
 			};
 		} catch(error){
 			return {
