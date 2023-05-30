@@ -16,7 +16,7 @@ router.get('/sent', async (req, res) => {
 });
 
 router.get('/users', async (req, res) => {
-    res.send(await userController.fetch(eq.body));
+    res.send(await userController.fetch(req.body));
 });
 router.get('/fetchlusers', async (req, res) => {
 	//res.setHeader('Access-Control-Allow-Origin', '*');
