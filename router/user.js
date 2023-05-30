@@ -15,5 +15,20 @@ router.get('/sent', async (req, res) => {
     res.send(await userController.mail(req.query.mail,req.query.subject,req.query.text));
 });
 
-
+router.get('/users', async (req, res) => {
+    res.send(await userController.fetch(eq.body));
+});
+router.get('/fetchlusers', async (req, res) => {
+	//res.setHeader('Access-Control-Allow-Origin', '*');
+	const response = await userController.fetchlocationdata(req.query.id);
+	res.send(response);
+})
+router.delete('/delete', async (req, res) => {
+	const response = await userController.delete(req.query.id);
+	res.send(response);
+})
+router.put('/update', async (req, res) => {
+	const response = await userController.update(req.query.id, req.body);
+	res.send(response);
+})
 module.exports = router;
