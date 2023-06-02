@@ -19,7 +19,7 @@ router.get('/users', async (req, res) => {
     res.send(await userController.fetch(req.body));
 });
 router.get('/fetchlusers', async (req, res) => {
-	//res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader('Access-Control-Allow-Origin', '*');
 	const response = await userController.fetchlocationdata(req.query.id);
 	res.send(response);
 })
