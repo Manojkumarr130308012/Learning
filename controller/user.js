@@ -155,11 +155,7 @@ class UserController {
 	async fetchdata(id){
 		try{
 			let response = await userSchema.find({_id:id});
-			
-			return {
-				status: "success",
-				response: response
-			};
+			return response;	
 		} catch(error){
 			return {
 				status: "error",
