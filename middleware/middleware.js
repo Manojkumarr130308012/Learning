@@ -14,6 +14,7 @@ server.use(cors());
 
 const userRouter = require('./../router/user');
 const adminRouter = require('./../router/admin');
+const categoryRouter = require('./../router/category');
 
 
 // console.log("enter")
@@ -42,6 +43,7 @@ mongoose.connect(db, {
 
 server.use("/user", userRouter);
 server.use("/admin", adminRouter);
+server.use("/category", categoryRouter);
 
 
 server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
