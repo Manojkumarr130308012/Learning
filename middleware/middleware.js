@@ -13,6 +13,7 @@ server.use(cors());
 //locationdata
 
 const userRouter = require('./../router/user');
+const adminRouter = require('./../router/admin');
 
 
 // console.log("enter")
@@ -40,6 +41,8 @@ mongoose.connect(db, {
 	//locationdata
 
 server.use("/user", userRouter);
+server.use("/admin", adminRouter);
+
 
 server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
