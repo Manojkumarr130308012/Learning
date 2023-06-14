@@ -7,6 +7,11 @@ const config=require("./../config/config.json")
 var mongoose = require('mongoose');
 server.use(bodyParser.json());
 const cors = require('cors');
+const {initializePayment, verifyPayemntAuthenticity} = require('../paytm/managePayment');
+
+//use uuid instead of crypto for generating orderId.
+const crypto = require('crypto'); 
+
 server.use(cors());
 
 

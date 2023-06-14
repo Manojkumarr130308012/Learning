@@ -1,10 +1,6 @@
 const router = require('express').Router();
 const userController = require('./../controller/user');
 
-const {initializePayment, verifyPayemntAuthenticity} = require('../paytm/managePayment');
-
-//use uuid instead of crypto for generating orderId.
-const crypto = require('crypto'); 
 
 router.post('/register', async (req, res) => {
     res.send(await userController.register(req.body));
