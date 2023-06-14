@@ -49,6 +49,10 @@ server.use("/category", categoryRouter);
 server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
+server.get('/', (req, res)=>{
+    res.render('index.ejs');
+});
+
 
 // server.use("/states", statesRouter);
 // server.use("/citys", cityRouter);

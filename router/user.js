@@ -31,4 +31,8 @@ router.put('/update', async (req, res) => {
 	const response = await userController.update(req.query.id, req.body);
 	res.send(response);
 })
+router.put('/payment', async (req, res) => {
+	const response = await userController.update(req.query.id, req.body);
+	res.send(response);
+})
 module.exports = router;
