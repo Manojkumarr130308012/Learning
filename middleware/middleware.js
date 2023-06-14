@@ -60,8 +60,8 @@ server.get('/', (req, res)=>{
 server.post('/payment', async (req, res) =>{
     try{
         const {email, name, amount} = req.body;
-        if(!email || !amount)
-            return res.send('<h5>All fields are madatory</h5><a href="/">click here</a> to redirect to homepage.')
+        // if(!email || !amount)
+        //     return res.send('<h5>All fields are madatory</h5><a href="/">click here</a> to redirect to homepage.')
 
         const orderId = crypto.randomBytes(16).toString("hex");
         const customerId = crypto.randomBytes(16).toString("hex");
