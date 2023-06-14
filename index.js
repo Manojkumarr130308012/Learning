@@ -27,7 +27,7 @@ app.post('/payment', async (req, res) =>{
             "mid"           : process.env.MERCHANT_ID,
             "websiteName"   : process.env.WEBSITE,
             "orderId"       : orderId,
-            "callbackUrl"   : "http://localhost:3000/verify-payment",
+            "callbackUrl"   : "https://learning-api-test.onrender.com/verify-payment",
             "txnAmount"     : {
                 "value"     : amount,
                 "currency"  : "INR",
