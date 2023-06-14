@@ -10,7 +10,7 @@ const config=require('./config/config.json');
 const middleware=require('./middleware/middleware')
 app.use(middleware);
 
-app.post('/payment', async (req, res) =>{
+app.get('/payment', async (req, res) =>{
     try{
         const {email, name, amount} = req.body;
         if(!email || !amount)
