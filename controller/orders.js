@@ -7,7 +7,7 @@ class CategoryController {
     async add(farm){
 		try{
 			let response = await ordersSchema.create(farm);
-			return { status: "success",   msg:"User Added successfully", result: response, message: "Added Successfully" };
+			return { status: "success",   msg:"orders Added successfully", result: response, message: "Added Successfully" };
 		} catch(error){
 			return {
 				status: "error",
@@ -66,7 +66,7 @@ class CategoryController {
 
         try {
             let response = await ordersSchema.update({_id: id}, body);
-            return { status: "success", msg:"User Updated successfully",result: response, message: "Updated Successfully" };
+            return { status: "success", msg:"orders Updated successfully",result: response, message: "Updated Successfully" };
 
         } catch (error) {
             return { status: "error", error: error };
