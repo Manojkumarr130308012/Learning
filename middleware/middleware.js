@@ -7,7 +7,7 @@ const config=require("./../config/config.json")
 var mongoose = require('mongoose');
 var admin = require("firebase-admin");
 
-var serviceAccount = require("path/to/serviceAccountKey.json");
+var serviceAccount = require("./../admin.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
