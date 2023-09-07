@@ -18,6 +18,7 @@
     "dotenv": "^8.2.0",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
+    "firebase-admin": "^11.10.1",
     "mongoose": "^5.9.25",
     "nodemailer": "^6.6.0",
     "sendgrid": "^5.2.3",

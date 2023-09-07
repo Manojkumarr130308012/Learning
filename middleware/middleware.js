@@ -5,6 +5,15 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('../swagger.json');
 const config=require("./../config/config.json")
 var mongoose = require('mongoose');
+var admin = require("firebase-admin");
+
+var serviceAccount = require("path/to/serviceAccountKey.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://letschat-f9f77.firebaseio.com"
+});
+
 server.use(bodyParser.json());
 const cors = require('cors');
 const {initializePayment, verifyPayemntAuthenticity} = require('../paytm/managePayment');
@@ -23,7 +32,10 @@ const categoryRouter = require('./../router/category');
 const ordersRouter = require('./../router/orders');
 
 
-// console.log("enter")
+var db=admin.database();
+var userRef=db.ref("AppUsers");
+
+console.log(""+userRef)
  let { protocal, host, port, name,username,password } = config.app.db;
 //  let db= process.env.MONGODB_URL ||`mongodb+srv://admin:admin123@cluster0.qcrci.mongodb.net/examplecontact?retryWrites=true&w=majority`;
  let db= process.env.MONGODB_URL ||`mongodb+srv://admin:admin123@hoffen.cnl9m8a.mongodb.net/HoffenretryWrites=true&w=majority`;
@@ -55,6 +67,12 @@ server.use("/orders", ordersRouter);
 
 server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
+server.get('/cusumer', (req, res)=>{
+    database.ref('customPath').once('value')
+    .then(function(snapshot) {
+        console.log( snapshot.val() )
+    })
+});
 
 server.get('/', (req, res)=>{
     res.render('index.ejs');
