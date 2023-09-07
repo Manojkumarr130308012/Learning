@@ -32,8 +32,8 @@ const categoryRouter = require('./../router/category');
 const ordersRouter = require('./../router/orders');
 
 
-var db=admin.database();
-var userRef=db.ref("AppUsers");
+var dbf=admin.database();
+var userRef=dbf.ref("AppUsers");
 
 console.log(""+userRef)
  let { protocal, host, port, name,username,password } = config.app.db;
