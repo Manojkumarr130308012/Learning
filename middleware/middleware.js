@@ -37,7 +37,8 @@ var userRef=dbf.ref("AppUsers");
 server.get('/consumer', (req, res)=>{
     userRef.once('value')
     .then(function(snapshot) {
-        console.log( snapshot.val() )
+        res.render(snapshot.val())
+        console.log( )
     })
  });
  
