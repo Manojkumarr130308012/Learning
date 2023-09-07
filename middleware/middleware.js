@@ -31,19 +31,22 @@ const adminRouter = require('./../router/admin');
 const categoryRouter = require('./../router/category');
 const ordersRouter = require('./../router/orders');
 
-
 var dbf=admin.database();
 var userRef=dbf.ref("AppUsers");
 
-console.log(""+userRef)
+server.get('/consumer', (req, res)=>{
+    userRef.once('value')
+    .then(function(snapshot) {
+        console.log( snapshot.val() )
+    })
+ });
+ 
  let { protocal, host, port, name,username,password } = config.app.db;
 //  let db= process.env.MONGODB_URL ||`mongodb+srv://admin:admin123@cluster0.qcrci.mongodb.net/examplecontact?retryWrites=true&w=majority`;
  let db= process.env.MONGODB_URL ||`mongodb+srv://admin:admin123@hoffen.cnl9m8a.mongodb.net/HoffenretryWrites=true&w=majority`;
 
 console.log('connected to the database',db);
 
-
-	
 mongoose.connect(db, {
     useUnifiedTopology: true,
     useNewUrlParser: true
@@ -67,12 +70,6 @@ server.use("/orders", ordersRouter);
 
 server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-server.get('/cusumer', (req, res)=>{
-    database.ref('customPath').once('value')
-    .then(function(snapshot) {
-        console.log( snapshot.val() )
-    })
-});
 
 server.get('/', (req, res)=>{
     res.render('index.ejs');
