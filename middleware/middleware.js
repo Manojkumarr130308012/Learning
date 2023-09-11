@@ -38,7 +38,6 @@ server.get('/consumer', (req, res)=>{
     userRef.once('value')
     .then(function(snapshot) {
         res.render(snapshot.val())
-        console.log( )
     })
  });
  
