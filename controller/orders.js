@@ -83,6 +83,8 @@ class CategoryController {
 	async orderfetch(){
 		try{ 
 			let response ;
+			var dbf=admin.database();
+             var userRef=dbf.ref("AppUsers");
 			userRef.once('value')
 			.then(function(snapshot) {
 				response = snapshot.val();

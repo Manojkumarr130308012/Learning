@@ -5,14 +5,14 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('../swagger.json');
 const config=require("./../config/config.json")
 var mongoose = require('mongoose');
-var admin = require("firebase-admin");
+// var admin = require("firebase-admin");
 
-var serviceAccount = require("./../admin.json");
+// var serviceAccount = require("./../admin.json");
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://letschat-f9f77.firebaseio.com"
-});
+// admin.initializeApp({
+//   credential: admin.credential.cert(serviceAccount),
+//   databaseURL: "https://letschat-f9f77.firebaseio.com"
+// });
 
 server.use(bodyParser.json());
 const cors = require('cors');
@@ -31,8 +31,8 @@ const adminRouter = require('./../router/admin');
 const categoryRouter = require('./../router/category');
 const ordersRouter = require('./../router/orders');
 
-var dbf=admin.database();
-var userRef=dbf.ref("AppUsers");
+// var dbf=admin.database();
+// var userRef=dbf.ref("AppUsers");
 
 // server.get('/consumer', (req, res)=>{
 //     userRef.once('value')
