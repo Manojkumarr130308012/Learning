@@ -87,6 +87,7 @@ class CategoryController {
 			.then(function(snapshot) {
 				response = snapshot.val();
 			})
+			console.log(response)
 			return {
 				response: response
 			};
