@@ -21,4 +21,10 @@ router.put('/update', async (req, res) => {
 	const response = await ordersController.update(req.query.id, req.body);
 	res.send(response);
 })
+router.get('/orderstate', async (req, res) => {
+    res.send(await ordersController.orderfetch());
+});
+
+
+
 module.exports = router;

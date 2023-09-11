@@ -34,12 +34,12 @@ const ordersRouter = require('./../router/orders');
 var dbf=admin.database();
 var userRef=dbf.ref("AppUsers");
 
-server.get('/consumer', (req, res)=>{
-    userRef.once('value')
-    .then(function(snapshot) {
-        res.render(snapshot.val())
-    })
- });
+// server.get('/consumer', (req, res)=>{
+//     userRef.once('value')
+//     .then(function(snapshot) {
+//         console.log( snapshot.val() )
+//     })
+//  });
  
  let { protocal, host, port, name,username,password } = config.app.db;
 //  let db= process.env.MONGODB_URL ||`mongodb+srv://admin:admin123@cluster0.qcrci.mongodb.net/examplecontact?retryWrites=true&w=majority`;

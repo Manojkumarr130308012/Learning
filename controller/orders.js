@@ -1,6 +1,11 @@
 const ordersSchema = require('../model/orders');
 const errorHandler = require('../utils/error.handler');
-
+var admin = require("firebase-admin");
+var serviceAccount = require("./../admin.json");
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://letschat-f9f77.firebaseio.com"
+});
 class CategoryController {
 
 
@@ -73,6 +78,26 @@ class CategoryController {
         }
 
     }
+
+
+	async orderfetch(){
+		try{ 
+			let response ;
+			userRef.once('value')
+			.then(function(snapshot) {
+				response = snapshot.val();
+			})
+			return {
+				response: response
+			};
+		} catch(error){
+			return {
+				status: "error",
+				error: errorHandler.parseMongoError(error)
+			};
+		}
+	}
+  
 
 	
 }
