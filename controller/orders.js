@@ -2,6 +2,7 @@ const ordersSchema = require('../model/orders');
 const errorHandler = require('../utils/error.handler');
 var admin = require("firebase-admin");
 var serviceAccount = require("./../admin.json");
+const { use } = require('../router/user');
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://letschat-f9f77.firebaseio.com"
@@ -85,12 +86,14 @@ class CategoryController {
 			let response ;
 			var dbf=admin.database();
              var userRef=dbf.ref("AppUsers");
-			userRef.once('value')
-			.then(function(snapshot) {
-				response = snapshot.val();
-				console.log(response);
-			})
-			console.log(response)
+			// userRef.once('value').then(function(snapshot) {
+			// 	response = snapshot.val();
+			// 	console.log(response);
+			// })
+
+			userRef.on('value',snap =>{
+				response = snap.val();
+			});
 			return {
 				response: response
 			};
