@@ -93,6 +93,7 @@ class CategoryController {
 
 			userRef.on('value',snap =>{
 				response = snap.val();
+				console.log(response)
 			});
 			return {
 				response: response
