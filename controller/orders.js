@@ -88,6 +88,7 @@ class CategoryController {
 			userRef.once('value')
 			.then(function(snapshot) {
 				response = snapshot.val();
+				console.log(response);
 			})
 			console.log(response)
 			return {
