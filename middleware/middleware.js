@@ -25,9 +25,11 @@ const crypto = require('crypto');
 server.use(cors());
 
 
-cron.schedule('* 1 * * *', () => {
-    console.log('running a task every minute');
+cron.schedule('5 * * * * *', () =>  {
+    console.log('stopped task');
   });
+  
+
 
 //locationdata
 
