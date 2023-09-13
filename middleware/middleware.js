@@ -25,7 +25,7 @@ const crypto = require('crypto');
 server.use(cors());
 
 
-cron.schedule('5 * * * * *', () =>  {
+cron.schedule('* 1 * * * *', () =>  {
     console.log('stopped task');
   });
   
