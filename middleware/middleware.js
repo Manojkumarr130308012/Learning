@@ -29,7 +29,7 @@ cron.schedule('1 * * * * *', () =>  {
     console.log('stopped task');
 
     	var dbf=admin.database();
-        var userRef=dbf.ref("AdminData");
+        var userRef=dbf.ref("AdminData/Billing/Bill");
 		userRef.once('value').then(function(snapshot) {
 				response = snapshot.val();
 				console.log(response);
