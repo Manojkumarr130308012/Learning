@@ -27,12 +27,86 @@ server.use(cors());
 
 cron.schedule('1 * * * * *', () =>  {
     console.log('stopped task');
-
+        var totalval = 0.0;
     	var dbf=admin.database();
-        var userRef=dbf.ref("AdminData/Billing/Bill");
-		userRef.once('value').then(function(snapshot) {
-				response = snapshot.val();
-				console.log(response);
+        var adminRef=dbf.ref("AdminData");
+        var billingRef=dbf.ref("Billing");
+
+		adminRef.child('Billing').once('value').then(function(snapshot) {
+            snapshot.forEach((snapshot) => {
+
+                 if(snapshot.child('Bill').child('orderstate').val() == "Pending"){
+                      var orderId = snapshot.child('Bill').child('OrderID').val();
+                      var userId = snapshot.child('Bill').child('userId').val();
+
+
+                   //adminData itemlist amount update 
+                    snapshot.child('ItemList').forEach((itemlist) => {
+                        const weight=itemlist.child('weight').val();
+                        var vegtableRef=dbf.ref("VegetableEntry/"+ itemlist.child('id').val());
+                        vegtableRef.once('value').then(function(vegtablelist){
+                            const Price=vegtablelist.child('Rate').val();
+                            const totalstr = Price * weight;
+                            totalval = totalval + totalstr;
+                            var item = {
+                                rate : totalstr
+                                };
+                            adminRef.child('Billing').child(orderId).child('ItemList').child(itemlist.key).update(item);
+                        })
+                     })
+
+                     //admindata history  itemlist amount update
+                     adminRef.child('History').child(orderId).child('ItemList').once('value').then(function(snapshot) {
+                        snapshot.forEach((historyitem) => {
+                        const weight=historyitem.child('weight').val();
+                        var vegtableRef=dbf.ref("VegetableEntry/"+ historyitem.child('id').val());
+                        vegtableRef.once('value').then(function(vegtablelist){
+                            const Price=vegtablelist.child('Rate').val();
+                            const totalstr = Price * weight;
+                            totalval = totalval + totalstr;
+                            var item = {
+                                rate : totalstr
+                                };
+                            adminRef.child('History').child(orderId).child('ItemList').child(historyitem.key).update(item);
+                        })
+                     })
+                    })
+
+
+                    // consumer itemlist
+                    billingRef.child(userId).child(orderId).child('ItemList').once('value').then(function(snapshot) {
+                        snapshot.forEach((historyitem) => {
+                        const weight=historyitem.child('weight').val();
+                        var vegtableRef=dbf.ref("VegetableEntry/"+ historyitem.child('id').val());
+                        vegtableRef.once('value').then(function(vegtablelist){
+                            const Price=vegtablelist.child('Rate').val();
+                            const totalstr = Price * weight;
+                            totalval = totalval + totalstr;
+                            console.log("weight",weight);
+                            var item = {
+                                rate : totalstr
+                                };
+                             billingRef.child(userId).child(orderId).child('ItemList').child(historyitem.key).update(item);
+                        })
+                     })
+                    })
+
+
+                       //admindata bill total and status  update
+                       var updatebill = {
+                        TotalRate : totalval,
+                        orderstate : "Approved"
+                        };
+
+                       adminRef.child('Billing').child(orderId).child('Bill').update(updatebill);
+
+                       adminRef.child('History').child(orderId).child('Bill').update(updatebill);
+
+                       billingRef.child(userId).child(orderId).child('Bill').update(updatebill);
+
+
+                }
+              });
 		});
   });
   
