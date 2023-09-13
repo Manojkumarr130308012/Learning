@@ -6,14 +6,14 @@ const swaggerDocument = require('../swagger.json');
 const config=require("./../config/config.json")
 var mongoose = require('mongoose');
 var cron = require('node-cron');
-// var admin = require("firebase-admin");
+var admin = require("firebase-admin");
 
-// var serviceAccount = require("./../admin.json");
+var serviceAccount = require("./../admin.json");
 
-// admin.initializeApp({
-//   credential: admin.credential.cert(serviceAccount),
-//   databaseURL: "https://letschat-f9f77.firebaseio.com"
-// });
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://letschat-f9f77.firebaseio.com"
+});
 
 server.use(bodyParser.json());
 const cors = require('cors');
@@ -27,6 +27,13 @@ server.use(cors());
 
 cron.schedule('1 * * * * *', () =>  {
     console.log('stopped task');
+
+    	var dbf=admin.database();
+        var userRef=dbf.ref("AdminData");
+		userRef.once('value').then(function(snapshot) {
+				response = snapshot.val();
+				console.log(response);
+		});
   });
   
 
@@ -41,12 +48,7 @@ const ordersRouter = require('./../router/orders');
 // var dbf=admin.database();
 // var userRef=dbf.ref("AppUsers");
 
-// server.get('/consumer', (req, res)=>{
-//     userRef.once('value')
-//     .then(function(snapshot) {
-//         console.log( snapshot.val() )
-//     })
-//  });
+
  
  let { protocal, host, port, name,username,password } = config.app.db;
 //  let db= process.env.MONGODB_URL ||`mongodb+srv://admin:admin123@cluster0.qcrci.mongodb.net/examplecontact?retryWrites=true&w=majority`;
