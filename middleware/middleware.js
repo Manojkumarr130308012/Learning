@@ -5,6 +5,7 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('../swagger.json');
 const config=require("./../config/config.json")
 var mongoose = require('mongoose');
+var cron = require('node-cron');
 // var admin = require("firebase-admin");
 
 // var serviceAccount = require("./../admin.json");
@@ -23,6 +24,10 @@ const crypto = require('crypto');
 
 server.use(cors());
 
+
+cron.schedule('* 1 * * *', () => {
+    console.log('running a task every minute');
+  });
 
 //locationdata
 
