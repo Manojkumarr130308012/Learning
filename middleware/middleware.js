@@ -117,6 +117,25 @@ cron.schedule('* 13 * * * *', () =>  {
   
 
 
+  server.put('/accepted', (req, res)=>{
+    var dbf=admin.database();
+    var adminRef=dbf.ref("AdminData");
+    var billingRef=dbf.ref("Billing");
+     //admindata bill total and status  update
+     var updatebill = {
+        orderstate : req.query.status
+        };
+
+       adminRef.child('Billing').child(req.query.orderId).child('Bill').update(updatebill);
+
+       adminRef.child('History').child(req.query.orderId).child('Bill').update(updatebill);
+
+       billingRef.child(req.query.userId).child(req.query.orderId).child('Bill').update(updatebill);
+
+       var response = "updated successfully"
+
+    res.send(response);
+});
 //locationdata
 
 const userRouter = require('./../router/user');
@@ -159,9 +178,7 @@ server.use("/orders", ordersRouter);
 server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
-server.get('/', (req, res)=>{
-    res.render('index.ejs');
-});
+
 server.post('/payment', async (req, res) =>{
     try{
         const {email, name, amount} = req.body;
