@@ -25,7 +25,7 @@ const crypto = require('crypto');
 server.use(cors());
 
 
-cron.schedule('0 14 * * *', () =>  {
+cron.schedule('30 14 * * *', () =>  {
     console.log('stopped task');
         var totalval = 0.0;
     	var dbf=admin.database();
@@ -117,24 +117,30 @@ cron.schedule('0 14 * * *', () =>  {
   
 
 
+
   server.put('/accepted', (req, res)=>{
-    var dbf=admin.database();
-    var adminRef=dbf.ref("AdminData");
-    var billingRef=dbf.ref("Billing");
-     //admindata bill total and status  update
-     var updatebill = {
-        orderstate : req.query.status
-        };
 
-       adminRef.child('Billing').child(req.query.orderId).child('Bill').update(updatebill);
-
-       adminRef.child('History').child(req.query.orderId).child('Bill').update(updatebill);
-
-       billingRef.child(req.query.userId).child(req.query.orderId).child('Bill').update(updatebill);
-
-       var response = "updated successfully"
-
-    res.send(response);
+    try{
+        var dbf=admin.database();
+        var adminRef=dbf.ref("AdminData");
+        var billingRef=dbf.ref("Billing");
+         //admindata bill total and status  update
+         var updatebill = {
+            orderstate : req.query.status
+            };
+    
+           adminRef.child('Billing').child(req.query.orderId).child('Bill').update(updatebill);
+    
+           adminRef.child('History').child(req.query.orderId).child('Bill').update(updatebill);
+    
+           billingRef.child(req.query.userId).child(req.query.orderId).child('Bill').update(updatebill);
+    
+           var response = "updated successfully"
+    
+        res.send(response);
+    }catch(e){
+        console.log(e);
+    }
 });
 //locationdata
 
