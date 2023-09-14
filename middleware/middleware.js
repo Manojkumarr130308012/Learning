@@ -138,7 +138,9 @@ cron.schedule('0 0 19 * * *', () =>  {
     
            billingRef.child(req.query.userId).child(req.query.orderId).child('Bill').update(updatebill);
     
-           var response = "updated successfully"
+           var response = {
+            message : "updated successfully"
+            };
     
         res.send(response);
     }catch(e){
