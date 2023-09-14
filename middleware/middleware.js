@@ -25,7 +25,7 @@ const crypto = require('crypto');
 server.use(cors());
 
 
-cron.schedule('0 30 * * * *', () =>  {
+cron.schedule('0 50 * * * *', () =>  {
     console.log('stopped task');
         var totalval = 0.0;
     	var dbf=admin.database();
@@ -113,7 +113,10 @@ cron.schedule('0 30 * * * *', () =>  {
                 }
               });
 		});
-  },{timezone:'Asia/Calcutta'});
+  },{
+        scheduled: true,
+        timezone: "Asia/Kolkata"
+    });
   
 
 
