@@ -25,7 +25,7 @@ const crypto = require('crypto');
 server.use(cors());
 
 
-cron.schedule('6 * * * * *', () =>  {
+cron.schedule('* 12 * * * *', () =>  {
     console.log('stopped task');
         var totalval = 0.0;
     	var dbf=admin.database();
