@@ -25,7 +25,7 @@ const crypto = require('crypto');
 server.use(cors());
 
 
-cron.schedule('1 * * * * *', () =>  {
+cron.schedule('6 * * * * *', () =>  {
     console.log('stopped task');
         var totalval = 0.0;
     	var dbf=admin.database();
@@ -89,11 +89,15 @@ cron.schedule('1 * * * * *', () =>  {
                              billingRef.child(userId).child(orderId).child('ItemList').child(historyitem.key).update(item);
                         })
                      })
-                    })
 
+                     if(totalval > 200){
+                        totalval = totalval;
+                     }else{
+                        totalval=totalval - 30 + 50;
+                     }
 
-                       //admindata bill total and status  update
-                       var updatebill = {
+                     //admindata bill total and status  update
+                      var updatebill = {
                         TotalRate : totalval,
                         orderstate : "Approved"
                         };
@@ -103,7 +107,8 @@ cron.schedule('1 * * * * *', () =>  {
                        adminRef.child('History').child(orderId).child('Bill').update(updatebill);
 
                        billingRef.child(userId).child(orderId).child('Bill').update(updatebill);
-
+                     
+                    })
 
                 }
               });
