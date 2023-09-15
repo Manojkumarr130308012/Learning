@@ -119,6 +119,93 @@ cron.schedule('0 0 1 * * *', () =>  {
     });
   
 
+    server.put('/Approved', (req, res)=>{
+
+        try{
+            var dbf=admin.database();
+            var adminRef=dbf.ref("AdminData");
+            var billingRef=dbf.ref("Billing");
+             //admindata bill total and status  update
+         //adminData itemlist amount update 
+         adminRef.child('Billing').child(orderId).child('ItemList').forEach((itemlist) => {
+            const weight=itemlist.child('weight').val();
+            var vegtableRef=dbf.ref("VegetableEntry/"+ itemlist.child('id').val());
+            vegtableRef.once('value').then(function(vegtablelist){
+                const Price=vegtablelist.child('Rate').val();
+                const totalstr = Price * weight;
+                totalval = totalval + totalstr;
+                var item = {
+                    rate : totalstr
+                    };
+                adminRef.child('Billing').child(orderId).child('ItemList').child(itemlist.key).update(item);
+            })
+         })
+
+         //admindata history  itemlist amount update
+         adminRef.child('History').child(orderId).child('ItemList').once('value').then(function(snapshot) {
+            snapshot.forEach((historyitem) => {
+            const weight=historyitem.child('weight').val();
+            var vegtableRef=dbf.ref("VegetableEntry/"+ historyitem.child('id').val());
+            vegtableRef.once('value').then(function(vegtablelist){
+                const Price=vegtablelist.child('Rate').val();
+                const totalstr = Price * weight;
+                totalval = totalval + totalstr;
+                var item = {
+                    rate : totalstr
+                    };
+                adminRef.child('History').child(orderId).child('ItemList').child(historyitem.key).update(item);
+            })
+         })
+        })
+
+
+        // consumer itemlist
+        billingRef.child(userId).child(orderId).child('ItemList').once('value').then(function(snapshot) {
+            snapshot.forEach((historyitem) => {
+            const weight=historyitem.child('weight').val();
+            var vegtableRef=dbf.ref("VegetableEntry/"+ historyitem.child('id').val());
+            vegtableRef.once('value').then(function(vegtablelist){
+                const Price=vegtablelist.child('Rate').val();
+                const totalstr = Price * weight;
+                totalval = totalval + totalstr;
+                console.log("weight",weight);
+                var item = {
+                    rate : totalstr
+                    };
+                 billingRef.child(userId).child(orderId).child('ItemList').child(historyitem.key).update(item);
+            })
+         })
+
+         if(totalval > 200){
+            totalval = totalval;
+         }else{
+            totalval=totalval - 30 + 50;
+         }
+
+         //admindata bill total and status  update
+          var updatebill = {
+            TotalRate : totalval,
+            orderstate : req.query.status
+            };
+
+           adminRef.child('Billing').child(orderId).child('Bill').update(updatebill);
+
+           adminRef.child('History').child(orderId).child('Bill').update(updatebill);
+
+           billingRef.child(userId).child(orderId).child('Bill').update(updatebill);
+         
+        })
+
+        
+               var response = {
+                message : "updated successfully"
+                };
+        
+            res.send(response);
+        }catch(e){
+            console.log(e);
+        }
+    });
 
 
   server.put('/accepted', (req, res)=>{
