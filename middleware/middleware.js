@@ -205,7 +205,7 @@ cron.schedule('0 0 1 * * *', () =>  {
 
          //admindata bill total and status  update
           var updatebill = {
-            TotalRate : totalval,
+            TotalRate : ""+totalval,
             orderstate : req.query.status
             };
 
