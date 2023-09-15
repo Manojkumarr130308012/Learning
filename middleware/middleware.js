@@ -122,6 +122,7 @@ cron.schedule('0 0 1 * * *', () =>  {
     server.put('/Approved', (req, res)=>{
 
         try{
+            var totalval = 0.0;
             var dbf=admin.database();
             var adminRef=dbf.ref("AdminData");
             var billingRef=dbf.ref("Billing");
