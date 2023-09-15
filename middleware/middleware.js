@@ -130,17 +130,34 @@ cron.schedule('0 0 1 * * *', () =>  {
          console.log(req.query.orderId)
          console.log(req.query.userId)
 
-         adminRef.child('Billing').child(req.query.orderId).child('ItemList').forEach((itemlist) => {
-            const weight=itemlist.child('weight').val();
-            var vegtableRef=dbf.ref("VegetableEntry/"+ itemlist.child('id').val());
-            vegtableRef.once('value').then(function(vegtablelist){
-                const Price=vegtablelist.child('Rate').val();
-                const totalstr = Price * weight;
-                totalval = totalval + totalstr;
-                var item = {
-                    rate : totalstr
-                    };
-                adminRef.child('Billing').child(req.query.orderId).child('ItemList').child(itemlist.key).update(item);
+        //  adminRef.child('Billing').child(req.query.orderId).child('ItemList').forEach((itemlist) => {
+        //     const weight=itemlist.child('weight').val();
+        //     var vegtableRef=dbf.ref("VegetableEntry/"+ itemlist.child('id').val());
+        //     vegtableRef.once('value').then(function(vegtablelist){
+        //         const Price=vegtablelist.child('Rate').val();
+        //         const totalstr = Price * weight;
+        //         totalval = totalval + totalstr;
+        //         var item = {
+        //             rate : totalstr
+        //             };
+        //         adminRef.child('Billing').child(req.query.orderId).child('ItemList').child(itemlist.key).update(item);
+        //     })
+        //  })
+
+
+         adminRef.child('Billing').child(req.query.orderId).child('ItemList').once('value').then(function(snapshot){
+            snapshot.forEach((itemlist) => {
+                const weight=itemlist.child('weight').val();
+                var vegtableRef=dbf.ref("VegetableEntry/"+ itemlist.child('id').val());
+                vegtableRef.once('value').then(function(vegtablelist){
+                    const Price=vegtablelist.child('Rate').val();
+                    const totalstr = Price * weight;
+                    totalval = totalval + totalstr;
+                    var item = {
+                        rate : totalstr
+                        };
+                    adminRef.child('Billing').child(req.query.orderId).child('ItemList').child(itemlist.key).update(item);
+                })
             })
          })
 
