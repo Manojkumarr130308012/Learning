@@ -127,6 +127,9 @@ cron.schedule('0 0 1 * * *', () =>  {
             var billingRef=dbf.ref("Billing");
              //admindata bill total and status  update
          //adminData itemlist amount update 
+         console.log(req.query.orderId)
+         console.log(req.query.userId)
+
          adminRef.child('Billing').child(req.query.orderId).child('ItemList').forEach((itemlist) => {
             const weight=itemlist.child('weight').val();
             var vegtableRef=dbf.ref("VegetableEntry/"+ itemlist.child('id').val());
