@@ -127,7 +127,7 @@ cron.schedule('0 0 1 * * *', () =>  {
             var billingRef=dbf.ref("Billing");
              //admindata bill total and status  update
          //adminData itemlist amount update 
-         adminRef.child('Billing').child(orderId).child('ItemList').forEach((itemlist) => {
+         adminRef.child('Billing').child(req.query.orderId).child('ItemList').forEach((itemlist) => {
             const weight=itemlist.child('weight').val();
             var vegtableRef=dbf.ref("VegetableEntry/"+ itemlist.child('id').val());
             vegtableRef.once('value').then(function(vegtablelist){
@@ -137,12 +137,12 @@ cron.schedule('0 0 1 * * *', () =>  {
                 var item = {
                     rate : totalstr
                     };
-                adminRef.child('Billing').child(orderId).child('ItemList').child(itemlist.key).update(item);
+                adminRef.child('Billing').child(req.query.orderId).child('ItemList').child(itemlist.key).update(item);
             })
          })
 
          //admindata history  itemlist amount update
-         adminRef.child('History').child(orderId).child('ItemList').once('value').then(function(snapshot) {
+         adminRef.child('History').child(req.query.orderId).child('ItemList').once('value').then(function(snapshot) {
             snapshot.forEach((historyitem) => {
             const weight=historyitem.child('weight').val();
             var vegtableRef=dbf.ref("VegetableEntry/"+ historyitem.child('id').val());
@@ -153,14 +153,14 @@ cron.schedule('0 0 1 * * *', () =>  {
                 var item = {
                     rate : totalstr
                     };
-                adminRef.child('History').child(orderId).child('ItemList').child(historyitem.key).update(item);
+                adminRef.child('History').child(req.query.orderId).child('ItemList').child(historyitem.key).update(item);
             })
          })
         })
 
 
         // consumer itemlist
-        billingRef.child(userId).child(orderId).child('ItemList').once('value').then(function(snapshot) {
+        billingRef.child(req.query.userId).child(req.query.orderId).child('ItemList').once('value').then(function(snapshot) {
             snapshot.forEach((historyitem) => {
             const weight=historyitem.child('weight').val();
             var vegtableRef=dbf.ref("VegetableEntry/"+ historyitem.child('id').val());
@@ -172,7 +172,7 @@ cron.schedule('0 0 1 * * *', () =>  {
                 var item = {
                     rate : totalstr
                     };
-                 billingRef.child(userId).child(orderId).child('ItemList').child(historyitem.key).update(item);
+                 billingRef.child(req.query.userId).child(req.query.orderId).child('ItemList').child(historyitem.key).update(item);
             })
          })
 
@@ -188,11 +188,11 @@ cron.schedule('0 0 1 * * *', () =>  {
             orderstate : req.query.status
             };
 
-           adminRef.child('Billing').child(orderId).child('Bill').update(updatebill);
+           adminRef.child('Billing').child(req.query.orderId).child('Bill').update(updatebill);
 
-           adminRef.child('History').child(orderId).child('Bill').update(updatebill);
+           adminRef.child('History').child(req.query.orderId).child('Bill').update(updatebill);
 
-           billingRef.child(userId).child(orderId).child('Bill').update(updatebill);
+           billingRef.child(req.query.userId).child(req.query.orderId).child('Bill').update(updatebill);
          
         })
 
