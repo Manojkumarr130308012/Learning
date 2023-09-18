@@ -155,7 +155,7 @@ cron.schedule('0 0 1 * * *', () =>  {
                     const totalstr = Price * weight;
                     totalval = totalval + totalstr;
                     var item = {
-                        rate : totalstr
+                        rate : ""+totalstr
                         };
                     adminRef.child('Billing').child(req.query.orderId).child('ItemList').child(itemlist.key).update(item);
                 })
@@ -172,7 +172,7 @@ cron.schedule('0 0 1 * * *', () =>  {
                 const totalstr = Price * weight;
                 totalval = totalval + totalstr;
                 var item = {
-                    rate : totalstr
+                    rate : ""+totalstr
                     };
                 adminRef.child('History').child(req.query.orderId).child('ItemList').child(historyitem.key).update(item);
             })
@@ -191,7 +191,7 @@ cron.schedule('0 0 1 * * *', () =>  {
                 totalval = totalval + totalstr;
                 console.log("weight",weight);
                 var item = {
-                    rate : totalstr
+                    rate : ""+totalstr
                     };
                  billingRef.child(req.query.userId).child(req.query.orderId).child('ItemList').child(historyitem.key).update(item);
             })
