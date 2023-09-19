@@ -345,6 +345,22 @@ server.use(cors());
          
         })
 
+
+
+        const  registrationToken = "fjXKPGUqSoKNuiB_-4RMBF:APA91bFoVN-bdx9m21otiqeKCxSr-U2QbAZhbD_ouJMkxPzpUwmuI5bPG7CzqKA-BJ6Si5WdMfxZJV2r31Q5OlA2TWQYPD_A5GFLFaeo5nT63OBiKh8ATTiZd6qRErlphMQ41XgzGh4x"
+        const message = "message sent sucess fully"
+        const options =  notification_options
+        
+          admin.messaging().sendToDevice(registrationToken, message, options)
+          .then( response => {
+    
+         //   res.status(200).send("Notification sent successfully")
+           
+          })
+          .catch( error => {
+              console.log(error);
+          });
+
         
                var response = {
                 message : "updated successfully"
@@ -373,6 +389,20 @@ server.use(cors());
            adminRef.child('History').child(req.query.orderId).child('Bill').update(updatebill);
     
            billingRef.child(req.query.userId).child(req.query.orderId).child('Bill').update(updatebill);
+
+           const  registrationToken = "fjXKPGUqSoKNuiB_-4RMBF:APA91bFoVN-bdx9m21otiqeKCxSr-U2QbAZhbD_ouJMkxPzpUwmuI5bPG7CzqKA-BJ6Si5WdMfxZJV2r31Q5OlA2TWQYPD_A5GFLFaeo5nT63OBiKh8ATTiZd6qRErlphMQ41XgzGh4x"
+           const message = "message sent sucess fully"
+           const options =  notification_options
+           
+             admin.messaging().sendToDevice(registrationToken, message, options)
+             .then( response => {
+       
+            //   res.status(200).send("Notification sent successfully")
+              
+             })
+             .catch( error => {
+                 console.log(error);
+             });
     
            var response = {
             message : "updated successfully"
