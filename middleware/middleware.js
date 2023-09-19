@@ -142,7 +142,7 @@ cron.schedule('5 * * * * *', () =>  {
             adminRef.child('Billing').once('value').then(function(snapshot) {
                 snapshot.forEach((snapshot) => {
     
-                     if(snapshot.child('Bill').child('orderstate').val() == "Pending" && snapshot.child('Bill').child('Date').val() == datestr){
+                     if(snapshot.child('Bill').child('orderstate').val() == "Pending"){
                           var orderId = snapshot.child('Bill').child('OrderID').val();
                           var userId = snapshot.child('Bill').child('userId').val();
     
