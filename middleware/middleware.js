@@ -119,7 +119,7 @@ cron.schedule('5 * * * * *', () =>  {
     });
 
 
-    server.post('/ApprovedDynamic', (req, res)=>{
+    server.put('/ApprovedDynamic', (req, res)=>{
 
         try{
         
