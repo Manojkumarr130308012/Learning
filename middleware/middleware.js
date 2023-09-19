@@ -119,7 +119,7 @@ server.use(cors());
 //     });
 
 
-    server.get('/ApprovedDynamic', (req, res)=>{
+    server.post('/ApproveDynamic', (req, res)=>{
 
         try{
         
