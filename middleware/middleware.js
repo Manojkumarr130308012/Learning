@@ -127,14 +127,24 @@ cron.schedule('5 * * * * *', () =>  {
             var dbf=admin.database();
             var adminRef=dbf.ref("AdminData");
             var billingRef=dbf.ref("Billing");
+
+            let ts = Date.now();
+
+            let date_ob = new Date(ts);
+            let date = date_ob.getDate();
+            let month = date_ob.getMonth() + 1;
+            let year = date_ob.getFullYear();
+
+            let datestr=date+"-"+month+"-"+year;
+
+            console.log("datestr",datestr);
     
             adminRef.child('Billing').once('value').then(function(snapshot) {
                 snapshot.forEach((snapshot) => {
     
-                     if(snapshot.child('Bill').child('orderstate').val() == "Pending"){
+                     if(snapshot.child('Bill').child('orderstate').val() == "Pending" && snapshot.child('Bill').child('Date').val() == datestr){
                           var orderId = snapshot.child('Bill').child('OrderID').val();
                           var userId = snapshot.child('Bill').child('userId').val();
-    
     
                        //adminData itemlist amount update 
                         snapshot.child('ItemList').forEach((itemlist) => {
