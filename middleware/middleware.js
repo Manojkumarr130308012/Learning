@@ -155,6 +155,41 @@ server.use(cors());
                           appUserRef.child(req.query.userId).once('value').then(function(snapshot) {
                              snapshot.forEach((snapshot) => {
                                  refreshtoken = snapshot.child('token').val();
+
+                    try{
+                        const notification_options = {
+                            priority: "high",
+                            timeToLive: 60 * 60 * 24
+                          };
+                         let payload = {
+                            notification: {
+                              title: "NR Vegtable",
+                              body: "Your order is Approved.Please Accept the order"
+                            }
+                          };
+        
+                        const  registrationToken = refreshtoken
+                         const options =  notification_options
+            
+               admin.messaging().sendToDevice(registrationToken,payload, options)
+              .then( response => {
+        
+                response = {
+                    message : response
+                    };
+                    res.send(response);
+               
+              })
+              .catch( error => {
+                  console.log(error);
+              });
+                    
+                    }catch(e){
+                         response = {
+                            message : e
+                            };
+                            console.log(response)
+                    }
                              })
                          })
                        //adminData itemlist amount update 
@@ -232,40 +267,6 @@ server.use(cors());
                     }
 
 
-                    try{
-                        const notification_options = {
-                            priority: "high",
-                            timeToLive: 60 * 60 * 24
-                          };
-                         let payload = {
-                            notification: {
-                              title: "NR Vegtable",
-                              body: "Your order is Approved.Please Accept the order"
-                            }
-                          };
-        
-                        const  registrationToken = refreshtoken
-                         const options =  notification_options
-            
-               admin.messaging().sendToDevice(registrationToken,payload, options)
-              .then( response => {
-        
-                response = {
-                    message : response
-                    };
-                    res.send(response);
-               
-              })
-              .catch( error => {
-                  console.log(error);
-              });
-                    
-                    }catch(e){
-                         response = {
-                            message : e
-                            };
-                            console.log(response)
-                    }
 
                   });
             });
@@ -429,17 +430,15 @@ server.use(cors());
            adminRef.child('History').child(req.query.orderId).child('Bill').update(updatebill);
 
            billingRef.child(req.query.userId).child(req.query.orderId).child('Bill').update(updatebill);
+
+           var response = {
+            message : "updated successfully"
+            };
+    
+        res.send(response);
          
         })     
 
-
-       
-
-               var response = {
-                message : "updated successfully"
-                };
-        
-            res.send(response);
         }catch(e){
             console.log(e);
         }
@@ -453,8 +452,59 @@ server.use(cors());
         var adminRef=dbf.ref("AdminData");
         var billingRef=dbf.ref("Billing");
         var appUserRef = dbf.ref("AppUsers")
-        var response;
         let refreshtoken;
+        //admindata bill total and status  update
+        appUserRef.child(req.query.userId).once('value').then(function(snapshot) {
+           snapshot.forEach((snapshot) => {
+               refreshtoken = snapshot.child('token').val();
+               try{
+                var response;
+              
+            
+                    try{
+                        const notification_options = {
+                            priority: "high",
+                            timeToLive: 60 * 60 * 24
+                          };
+                         let payload = {
+                            notification: {
+                              title: "NR Vegtable",
+                              body: "Your order is Approved.Please Accept the order"
+                            }
+                          };
+        
+                          console.log("refreshtoken",refreshtoken);
+    
+                        const  registrationToken = refreshtoken
+                         const options =  notification_options
+            
+               admin.messaging().sendToDevice(registrationToken,payload, options)
+              .then( response => {
+        
+                response = {
+                    message : response
+                    };
+                    res.send(response);
+               
+              })
+              .catch( error => {
+                  console.log(error);
+              });
+                    
+                    }catch(e){
+                         response = {
+                            message : e
+                            };
+                            console.log(response)
+                    }
+                  
+               
+            }catch(e){
+                console.log(e);
+            }
+           })
+       })
+        var response;
 
         appUserRef.child(req.query.userId).once('value').then(function(snapshot) {
             snapshot.forEach((snapshot) => {
@@ -515,7 +565,7 @@ server.use(cors());
     
                 adminRef.child('History').child(req.query.orderId).child('Bill').update(updatebill);
          
-                appUserRef.child(req.query.userId);
+                appUserRef.child(req.query.userId).child(req.query.orderId).child('Bill').update(updatebill);;
 
 
 
