@@ -385,7 +385,7 @@ server.use(cors());
 
 
 
-server.post('/accepted', (req, res)=>{
+server.post('/testing', (req, res)=>{
 
     try{
         var response;
