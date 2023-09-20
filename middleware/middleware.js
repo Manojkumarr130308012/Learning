@@ -391,16 +391,15 @@ server.get('/testing', (req, res)=>{
                   };
                  let payload = {
                     notification: {
-                      title: "Account Deposit",
-                      body: "A deposit to your savings account has just cleared."
+                      title: "NR Vegtable",
+                      body: "Your Order is accepted"
                     }
                   };
 
                 const  registrationToken = "fjXKPGUqSoKNuiB_-4RMBF:APA91bFoVN-bdx9m21otiqeKCxSr-U2QbAZhbD_ouJMkxPzpUwmuI5bPG7CzqKA-BJ6Si5WdMfxZJV2r31Q5OlA2TWQYPD_A5GFLFaeo5nT63OBiKh8ATTiZd6qRErlphMQ41XgzGh4x"
-                const message = "testing"
                  const options =  notification_options
     
-      admin.messaging().sendToDevice(registrationToken,payload, options)
+       admin.messaging().sendToDevice(registrationToken,payload, options)
       .then( response => {
 
         response = {
@@ -417,6 +416,7 @@ server.get('/testing', (req, res)=>{
                  response = {
                     message : e
                     };
+                    console.log(response)
             }
           
        
