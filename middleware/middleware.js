@@ -16,6 +16,7 @@ admin.initializeApp({
 });
 
 
+
 server.use(bodyParser.json());
 const cors = require('cors');
 const {initializePayment, verifyPayemntAuthenticity} = require('../paytm/managePayment');
@@ -377,77 +378,6 @@ server.use(cors());
         console.log(e);
     }
 });
-
-
-
-
-
-
-// server.post('/testing', (req, res)=>{
-
-//     try{
-//         var response;
-         
-    
-//        try{
-//         // sendPushNotification= (fcm_token, title, body) => {
-
-//         //     try{
-//         //         let message = {
-//         //             android: {
-//         //                 notification: {
-//         //                     title: "test",
-//         //                     body: "testmessage",
-//         //                 },
-//         //             },
-//         //             token: "fjXKPGUqSoKNuiB_-4RMBF:APA91bFoVN-bdx9m21otiqeKCxSr-U2QbAZhbD_ouJMkxPzpUwmuI5bPG7CzqKA-BJ6Si5WdMfxZJV2r31Q5OlA2TWQYPD_A5GFLFaeo5nT63OBiKh8ATTiZd6qRErlphMQ41XgzGh4x"
-//         //         };
-        
-//         //         fcm.send(message, function(err, resp) {
-//         //             if(err){
-//         //                 throw err;
-//         //             }else{
-//         //                 console.log('Successfully sent notification');
-//         //             }
-//         //         });
-        
-//         //     }catch(err){
-//         //         throw err;
-//         //         }
-        
-//         //     }
-
-
-//         const message =  {
-//             notification:{
-//                 title:'testing',
-//                 body:'just msf',
-//             },
-//             token:'fjXKPGUqSoKNuiB_-4RMBF:APA91bFoVN-bdx9m21otiqeKCxSr-U2QbAZhbD_ouJMkxPzpUwmuI5bPG7CzqKA-BJ6Si5WdMfxZJV2r31Q5OlA2TWQYPD_A5GFLFaeo5nT63OBiKh8ATTiZd6qRErlphMQ41XgzGh4x'
-//         }
-
-//         admin.messaging().send(message).then((response) =>{
-// console.log("msg sent")
-//         }).catch((error) =>{
-//             console.log("msg not sent")
-//         })
-//                  response = {
-//                     message : "notification sent successfully"
-//                     };
-//             }catch(e){
-//                  response = {
-//                     message : e
-//                     };
-//             }
-          
-    
-    
-    
-//         res.send(response);
-//     }catch(e){
-//         console.log(e);
-//     }
-// });
 //locationdata
 
 const userRouter = require('./../router/user');
