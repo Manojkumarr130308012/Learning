@@ -403,6 +403,9 @@ server.get('/testing', (req, res)=>{
       admin.messaging().sendToDevice(registrationToken,payload, options)
       .then( response => {
 
+        response = {
+            message : response
+            };
        res.send("Notification sent successfully")
        
       })
@@ -410,14 +413,11 @@ server.get('/testing', (req, res)=>{
           console.log(error);
       });
             
-            //      response = {
-            //         message : "updated successfully"
-            //         };
-            // }catch(e){
-            //      response = {
-            //         message : e
-            //         };
-            // }
+            }catch(e){
+                 response = {
+                    message : e
+                    };
+            }
           
         res.send(response);
     }catch(e){
