@@ -4,6 +4,7 @@ const bodyParser=require('body-parser');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('../swagger.json');
 const config=require("./../config/config.json")
+const FCM = require('fcm-node')
 var mongoose = require('mongoose');
 var cron = require('node-cron');
 var admin = require("firebase-admin");
@@ -16,7 +17,7 @@ admin.initializeApp({
 });
 
 const certPath = admin.credential.cert(serviceAccount);
-var FCM = new fcm(certPath);
+var fcm = new FCM(certPath);
 
 server.use(bodyParser.json());
 const cors = require('cors');
@@ -405,7 +406,7 @@ server.post('/testing', (req, res)=>{
                     token: "fjXKPGUqSoKNuiB_-4RMBF:APA91bFoVN-bdx9m21otiqeKCxSr-U2QbAZhbD_ouJMkxPzpUwmuI5bPG7CzqKA-BJ6Si5WdMfxZJV2r31Q5OlA2TWQYPD_A5GFLFaeo5nT63OBiKh8ATTiZd6qRErlphMQ41XgzGh4x"
                 };
         
-                FCM.send(message, function(err, resp) {
+                fcm.send(message, function(err, resp) {
                     if(err){
                         throw err;
                     }else{
