@@ -16,8 +16,7 @@ admin.initializeApp({
   databaseURL: "https://letschat-f9f77.firebaseio.com"
 });
 
-const certPath = admin.credential.cert(serviceAccount);
-var fcm = new FCM(certPath);
+var fcm = new FCM(serviceAccount);
 
 server.use(bodyParser.json());
 const cors = require('cors');
