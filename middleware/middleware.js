@@ -403,21 +403,21 @@ server.get('/testing', (req, res)=>{
       admin.messaging().sendToDevice(registrationToken,payload, options)
       .then( response => {
 
-       res.status(200).send("Notification sent successfully")
+       res.send("Notification sent successfully")
        
       })
       .catch( error => {
           console.log(error);
       });
             
-                 response = {
-                    message : "updated successfully"
-                    };
-            }catch(e){
-                 response = {
-                    message : e
-                    };
-            }
+            //      response = {
+            //         message : "updated successfully"
+            //         };
+            // }catch(e){
+            //      response = {
+            //         message : e
+            //         };
+            // }
           
         res.send(response);
     }catch(e){
