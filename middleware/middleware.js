@@ -406,7 +406,7 @@ server.get('/testing', (req, res)=>{
         response = {
             message : response
             };
-       res.send("Notification sent successfully")
+            res.send(response);
        
       })
       .catch( error => {
@@ -419,7 +419,7 @@ server.get('/testing', (req, res)=>{
                     };
             }
           
-        res.send(response);
+       
     }catch(e){
         console.log(e);
     }
