@@ -347,20 +347,29 @@ server.use(cors());
         var dbf=admin.database();
         var adminRef=dbf.ref("AdminData");
         var billingRef=dbf.ref("Billing");
+        var response;
          //admindata bill total and status  update
          var updatebill = {
             orderstate : req.query.status
             };
     
-           adminRef.child('Billing').child(req.query.orderId).child('Bill').update(updatebill);
+            try{
+                adminRef.child('Billing').child(req.query.orderId).child('Bill').update(updatebill);
     
-           adminRef.child('History').child(req.query.orderId).child('Bill').update(updatebill);
+                adminRef.child('History').child(req.query.orderId).child('Bill').update(updatebill);
+         
+                billingRef.child(req.query.userId).child(req.query.orderId).child('Bill').update(updatebill);
+                 response = {
+                    message : "updated successfully"
+                    };
+            }catch(e){
+                 response = {
+                    message : e
+                    };
+            }
+          
     
-           billingRef.child(req.query.userId).child(req.query.orderId).child('Bill').update(updatebill);
     
-           var response = {
-            message : "updated successfully"
-            };
     
         res.send(response);
     }catch(e){
