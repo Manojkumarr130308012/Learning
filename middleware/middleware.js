@@ -4,7 +4,6 @@ const bodyParser=require('body-parser');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('../swagger.json');
 const config=require("./../config/config.json")
-const FCM = require('fcm-node')
 var mongoose = require('mongoose');
 var cron = require('node-cron');
 var admin = require("firebase-admin");
@@ -16,7 +15,6 @@ admin.initializeApp({
   databaseURL: "https://letschat-f9f77.firebaseio.com"
 });
 
-var fcm = new FCM(serviceAccount);
 
 server.use(bodyParser.json());
 const cors = require('cors');
@@ -392,32 +390,32 @@ server.post('/testing', (req, res)=>{
          
     
        try{
-        sendPushNotification= (fcm_token, title, body) => {
+        // sendPushNotification= (fcm_token, title, body) => {
 
-            try{
-                let message = {
-                    android: {
-                        notification: {
-                            title: "test",
-                            body: "testmessage",
-                        },
-                    },
-                    token: "fjXKPGUqSoKNuiB_-4RMBF:APA91bFoVN-bdx9m21otiqeKCxSr-U2QbAZhbD_ouJMkxPzpUwmuI5bPG7CzqKA-BJ6Si5WdMfxZJV2r31Q5OlA2TWQYPD_A5GFLFaeo5nT63OBiKh8ATTiZd6qRErlphMQ41XgzGh4x"
-                };
+        //     try{
+        //         let message = {
+        //             android: {
+        //                 notification: {
+        //                     title: "test",
+        //                     body: "testmessage",
+        //                 },
+        //             },
+        //             token: "fjXKPGUqSoKNuiB_-4RMBF:APA91bFoVN-bdx9m21otiqeKCxSr-U2QbAZhbD_ouJMkxPzpUwmuI5bPG7CzqKA-BJ6Si5WdMfxZJV2r31Q5OlA2TWQYPD_A5GFLFaeo5nT63OBiKh8ATTiZd6qRErlphMQ41XgzGh4x"
+        //         };
         
-                fcm.send(message, function(err, resp) {
-                    if(err){
-                        throw err;
-                    }else{
-                        console.log('Successfully sent notification');
-                    }
-                });
+        //         fcm.send(message, function(err, resp) {
+        //             if(err){
+        //                 throw err;
+        //             }else{
+        //                 console.log('Successfully sent notification');
+        //             }
+        //         });
         
-            }catch(err){
-                throw err;
-                }
+        //     }catch(err){
+        //         throw err;
+        //         }
         
-            }
+        //     }
                  response = {
                     message : "notification sent successfully"
                     };
