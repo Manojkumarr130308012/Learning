@@ -523,8 +523,13 @@ server.get('/notification/send', (req, res)=>{
 
     try{
         var response;
+        let refreshtoken;
          //admindata bill total and status  update
-
+         appUserRef.child(req.query.userId).once('value').then(function(snapshot) {
+            snapshot.forEach((snapshot) => {
+                refreshtoken = snapshot.child('token').val();
+            })
+        })
     
             try{
                 const notification_options = {
@@ -538,7 +543,7 @@ server.get('/notification/send', (req, res)=>{
                     }
                   };
 
-                const  registrationToken = "fjXKPGUqSoKNuiB_-4RMBF:APA91bFoVN-bdx9m21otiqeKCxSr-U2QbAZhbD_ouJMkxPzpUwmuI5bPG7CzqKA-BJ6Si5WdMfxZJV2r31Q5OlA2TWQYPD_A5GFLFaeo5nT63OBiKh8ATTiZd6qRErlphMQ41XgzGh4x"
+                const  registrationToken = refreshtoken
                  const options =  notification_options
     
        admin.messaging().sendToDevice(registrationToken,payload, options)
