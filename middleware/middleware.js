@@ -377,7 +377,7 @@ server.use(cors());
     }
 });
 
-server.put('/testing', (req, res)=>{
+server.get('/testing', (req, res)=>{
 
     try{
         var response;
