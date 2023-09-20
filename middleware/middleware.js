@@ -15,6 +15,9 @@ admin.initializeApp({
   databaseURL: "https://letschat-f9f77.firebaseio.com"
 });
 
+const certPath = admin.credential.cert(serviceAccount);
+var FCM = new fcm(certPath);
+
 server.use(bodyParser.json());
 const cors = require('cors');
 const {initializePayment, verifyPayemntAuthenticity} = require('../paytm/managePayment');
@@ -376,6 +379,62 @@ server.use(cors());
         console.log(e);
     }
 });
+
+
+
+
+
+
+server.post('/accepted', (req, res)=>{
+
+    try{
+        var response;
+         
+    
+       try{
+        sendPushNotification= (fcm_token, title, body) => {
+
+            try{
+                let message = {
+                    android: {
+                        notification: {
+                            title: "test",
+                            body: "testmessage",
+                        },
+                    },
+                    token: "fjXKPGUqSoKNuiB_-4RMBF:APA91bFoVN-bdx9m21otiqeKCxSr-U2QbAZhbD_ouJMkxPzpUwmuI5bPG7CzqKA-BJ6Si5WdMfxZJV2r31Q5OlA2TWQYPD_A5GFLFaeo5nT63OBiKh8ATTiZd6qRErlphMQ41XgzGh4x"
+                };
+        
+                FCM.send(message, function(err, resp) {
+                    if(err){
+                        throw err;
+                    }else{
+                        console.log('Successfully sent notification');
+                    }
+                });
+        
+            }catch(err){
+                throw err;
+                }
+        
+            }
+                 response = {
+                    message : "notification sent successfully"
+                    };
+            }catch(e){
+                 response = {
+                    message : e
+                    };
+            }
+          
+    
+    
+    
+        res.send(response);
+    }catch(e){
+        console.log(e);
+    }
+});
 //locationdata
 
 const userRouter = require('./../router/user');
@@ -419,95 +478,7 @@ server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
 
-server.post('/payment', async (req, res) =>{
-    try{
-        const {email, name, amount} = req.body;
-        // if(!email || !amount)
-        //     return res.send('<h5>All fields are madatory</h5><a href="/">click here</a> to redirect to homepage.')
 
-        const orderId = crypto.randomBytes(16).toString("hex");
-        const customerId = crypto.randomBytes(16).toString("hex");
-
-        //use your own logic to calculate total amount
-
-        let paytmParams = {};
-        paytmParams.body = {
-            "requestType"   : "Payment",
-            "mid"           : process.env.MERCHANT_ID,
-            "websiteName"   : process.env.WEBSITE,
-            "orderId"       : orderId,
-            "callbackUrl"   : "https://learning-api-test.onrender.com/verify-payment",
-            "txnAmount"     : {
-                "value"     : amount,
-                "currency"  : "INR",
-            },
-            "userInfo"      : {
-                "custId"    : customerId,
-                "email"     : email,
-                "firstName" : name
-            },
-        };
-
-        let txnInfo = await initializePayment(paytmParams);
-
-        //logging API response.
-        console.log(txnInfo);
-
-        //converting string response to json.
-        txnInfo = JSON.parse(txnInfo); 
-    
-        //check of transaction token generated successfully
-        if(txnInfo && txnInfo.body.resultInfo.resultStatus == 'S'){
-
-            //transaction initiation successful.
-            //sending redirect to paytm page form with hidden inputs.
-            const hiddenInput = {
-                txnToken    : txnInfo.body.txnToken,
-                mid         : process.env.MERCHANT_ID,
-                orderId     : orderId
-            }
-            res.render('intermediateForm.ejs', {hiddenInput});
-
-        }else if(txnInfo){
-
-            //payment initialization failed.
-            //send custom response
-            //donot send this response. for debugging purpose only.
-            res.json({message: "cannot initiate transaction", transactionResultInfo: txnInfo.body.resultInfo});
-
-        }else{
-
-            //payment initialization failed.
-            //send custom response
-            //donot send this response. for debugging purpose only.
-            res.json({message: "someting else happens" })
-        }
-
-    }
-    catch(e){console.log(e);}
-
-});
-
-
-//use this end point to verify payment
-server.post('/verify-payment', async (req, res)=>{
-    //req.body contains all data sent by paytm related to payment.
-    //check checksumhash to verify transaction is not tampared.
-    const paymentObject = await verifyPayemntAuthenticity(req.body);
-
-    if(paymentObject){
-
-        /* check for required status */
-        //check STATUS
-        //check for RESPONSE CODE
-        //etc
-        //save details for later use.
-        console.log(paymentObject);
-        res.send('<h1 style="text-align: center;">Payment Successful.</h1><h3 style="text-align: center;">Process it in backend according to need.</h3><h3 style="text-align:center;"><a href="/" style="text-align: center;">click here</a> to go to home page.</h3>');
-    }
-    else
-        res.send('<h1 style="text-align: center;color: red;">Payment Tampered.</h1><h3 style="text-align: center;">CHECKSUMHASH not matched.</h3> <h3 style="text-align: center;><a href="/">click here</a> to go to home page.</h3>');
-});
 
 // server.use("/states", statesRouter);
 // server.use("/citys", cityRouter);
