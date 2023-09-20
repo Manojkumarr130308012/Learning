@@ -524,10 +524,23 @@ server.get('/notification/send', (req, res)=>{
     try{
         var response;
         let refreshtoken;
+        var dbf=admin.database();
+        var adminRef=dbf.ref("AdminData");
+        var appUserRef = dbf.ref("AppUsers")
          //admindata bill total and status  update
          appUserRef.child(req.query.userId).once('value').then(function(snapshot) {
             snapshot.forEach((snapshot) => {
-                refreshtoken = snapshot.child('token').val();
+                if(snapshot != null){
+                    refreshtoken = snapshot.child('token').val();
+                }else{
+                    adminRef.child(req.query.userId).once('value').then(function(snapshot) {
+                        snapshot.forEach((snapshot) => {
+                            if(snapshot != null){
+                                refreshtoken = snapshot.child('token').val();
+                            }
+                        })
+                    })
+                }
             })
         })
     
