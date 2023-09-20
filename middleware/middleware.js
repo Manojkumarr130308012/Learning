@@ -219,6 +219,43 @@ server.use(cors());
                         })
     
                     }
+
+
+                    try{
+                        const notification_options = {
+                            priority: "high",
+                            timeToLive: 60 * 60 * 24
+                          };
+                         let payload = {
+                            notification: {
+                              title: "NR Vegtable",
+                              body: "Your order is Approved.Please Accept the order"
+                            }
+                          };
+        
+                        const  registrationToken = refreshtoken
+                         const options =  notification_options
+            
+               admin.messaging().sendToDevice(registrationToken,payload, options)
+              .then( response => {
+        
+                response = {
+                    message : response
+                    };
+                    res.send(response);
+               
+              })
+              .catch( error => {
+                  console.log(error);
+              });
+                    
+                    }catch(e){
+                         response = {
+                            message : e
+                            };
+                            console.log(response)
+                    }
+
                   });
             });
         
@@ -330,6 +367,58 @@ server.use(cors());
            billingRef.child(req.query.userId).child(req.query.orderId).child('Bill').update(updatebill);
          
         })     
+
+
+        try{
+            var response;
+            let refreshtoken;
+             //admindata bill total and status  update
+             appUserRef.child(req.query.userId).once('value').then(function(snapshot) {
+                snapshot.forEach((snapshot) => {
+                    refreshtoken = snapshot.child('token').val();
+                })
+            })
+        
+                try{
+                    const notification_options = {
+                        priority: "high",
+                        timeToLive: 60 * 60 * 24
+                      };
+                     let payload = {
+                        notification: {
+                          title: "NR Vegtable",
+                          body: "Your order is Approved.Please Accept the order"
+                        }
+                      };
+    
+                    const  registrationToken = refreshtoken
+                     const options =  notification_options
+        
+           admin.messaging().sendToDevice(registrationToken,payload, options)
+          .then( response => {
+    
+            response = {
+                message : response
+                };
+                res.send(response);
+           
+          })
+          .catch( error => {
+              console.log(error);
+          });
+                
+                }catch(e){
+                     response = {
+                        message : e
+                        };
+                        console.log(response)
+                }
+              
+           
+        }catch(e){
+            console.log(e);
+        }
+
                var response = {
                 message : "updated successfully"
                 };
@@ -347,6 +436,7 @@ server.use(cors());
         var dbf=admin.database();
         var adminRef=dbf.ref("AdminData");
         var billingRef=dbf.ref("Billing");
+        var appUserRef = dbf.ref("AppUsers")
         var response;
          //admindata bill total and status  update
          var updatebill = {
@@ -358,7 +448,59 @@ server.use(cors());
     
                 adminRef.child('History').child(req.query.orderId).child('Bill').update(updatebill);
          
-                billingRef.child(req.query.userId).child(req.query.orderId).child('Bill').update(updatebill);
+                appUserRef.child(req.query.userId);
+
+
+
+                try{
+                    var response;
+                    let refreshtoken;
+                     //admindata bill total and status  update
+                     appUserRef.child(req.query.userId).once('value').then(function(snapshot) {
+                        snapshot.forEach((snapshot) => {
+                            refreshtoken = snapshot.child('token').val();
+                        })
+                    })
+                
+                        try{
+                            const notification_options = {
+                                priority: "high",
+                                timeToLive: 60 * 60 * 24
+                              };
+                             let payload = {
+                                notification: {
+                                  title: "NR Vegtable",
+                                  body: "Your order is Accepted"
+                                }
+                              };
+            
+                            const  registrationToken = refreshtoken
+                             const options =  notification_options
+                
+                   admin.messaging().sendToDevice(registrationToken,payload, options)
+                  .then( response => {
+            
+                    response = {
+                        message : response
+                        };
+                        res.send(response);
+                   
+                  })
+                  .catch( error => {
+                      console.log(error);
+                  });
+                        
+                        }catch(e){
+                             response = {
+                                message : e
+                                };
+                                console.log(response)
+                        }
+                      
+                   
+                }catch(e){
+                    console.log(e);
+                }
                  response = {
                     message : "updated successfully"
                     };
@@ -377,7 +519,7 @@ server.use(cors());
     }
 });
 
-server.get('/testing', (req, res)=>{
+server.get('/notification/send', (req, res)=>{
 
     try{
         var response;
@@ -392,7 +534,7 @@ server.get('/testing', (req, res)=>{
                  let payload = {
                     notification: {
                       title: "NR Vegtable",
-                      body: "Your Order is accepted"
+                      body: "Your Order is "+req.query.status
                     }
                   };
 
