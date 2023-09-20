@@ -294,6 +294,7 @@ server.use(cors());
             appUserRef.child(req.query.userId).once('value').then(function(snapshot) {
                snapshot.forEach((snapshot) => {
                    refreshtoken = snapshot.child('token').val();
+                   console.log("refreshtoken",refreshtoken);
                })
            })
              //admindata bill total and status  update
@@ -404,6 +405,8 @@ server.use(cors());
                         }
                       };
     
+                      console.log("refreshtoken",refreshtoken);
+
                     const  registrationToken = refreshtoken
                      const options =  notification_options
         
