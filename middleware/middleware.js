@@ -5,6 +5,7 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('../swagger.json');
 const config=require("./../config/config.json")
 var mongoose = require('mongoose');
+var cron = require('node-cron');
 var admin = require("firebase-admin");
 
 var serviceAccount = require("./../admin.json");
@@ -14,10 +15,9 @@ admin.initializeApp({
   databaseURL: "https://letschat-f9f77.firebaseio.com"
 });
 
-
-
 server.use(bodyParser.json());
 const cors = require('cors');
+const {initializePayment, verifyPayemntAuthenticity} = require('../paytm/managePayment');
 
 //use uuid instead of crypto for generating orderId.
 const crypto = require('crypto'); 
