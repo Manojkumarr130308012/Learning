@@ -416,6 +416,21 @@ server.post('/testing', (req, res)=>{
         //         }
         
         //     }
+
+
+        const message =  {
+            notification:{
+                title:'testing',
+                body:'just msf',
+            },
+            token:'fjXKPGUqSoKNuiB_-4RMBF:APA91bFoVN-bdx9m21otiqeKCxSr-U2QbAZhbD_ouJMkxPzpUwmuI5bPG7CzqKA-BJ6Si5WdMfxZJV2r31Q5OlA2TWQYPD_A5GFLFaeo5nT63OBiKh8ATTiZd6qRErlphMQ41XgzGh4x'
+        }
+
+        admin.messaging().send(message).then((response) =>{
+console.log("msg sent")
+        }).catch((error) =>{
+            console.log("msg not sent")
+        })
                  response = {
                     message : "notification sent successfully"
                     };
