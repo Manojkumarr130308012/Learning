@@ -376,6 +376,32 @@ server.use(cors());
         console.log(e);
     }
 });
+
+server.put('/testing', (req, res)=>{
+
+    try{
+        var response;
+         //admindata bill total and status  update
+
+    
+            try{
+
+                
+            
+                 response = {
+                    message : "updated successfully"
+                    };
+            }catch(e){
+                 response = {
+                    message : e
+                    };
+            }
+          
+        res.send(response);
+    }catch(e){
+        console.log(e);
+    }
+});
 //locationdata
 
 const userRouter = require('./../router/user');
