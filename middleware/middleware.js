@@ -280,7 +280,6 @@ server.use(cors());
             console.log(e);
         }
     });
-  
 
     server.put('/Approved', (req, res)=>{
 
@@ -444,8 +443,7 @@ server.use(cors());
         }
     });
 
-
-  server.put('/accepted', (req, res)=>{
+    server.put('/accepted', (req, res)=>{
 
     try{
         var dbf=admin.database();
@@ -586,10 +584,9 @@ server.use(cors());
     }catch(e){
         console.log(e);
     }
-});
+    });
 
-server.get('/notification/send', (req, res)=>{
-
+    server.get('/notification/send', (req, res)=>{
     try{
         var response;
         let refreshtoken;
@@ -687,7 +684,7 @@ server.get('/notification/send', (req, res)=>{
     }catch(e){
         console.log(e);
     }
-});
+    });
 //locationdata
 
 const userRouter = require('./../router/user');
