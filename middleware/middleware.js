@@ -152,46 +152,47 @@ server.use(cors());
                           var appUserRef = dbf.ref("AppUsers")
                           let refreshtoken;
                           //admindata bill total and status  update
-                          appUserRef.child(req.query.userId).once('value').then(function(snapshot) {
-                             snapshot.forEach((snapshot) => {
-                                 refreshtoken = snapshot.child('token').val();
-
-                    try{
-                        const notification_options = {
-                            priority: "high",
-                            timeToLive: 60 * 60 * 24
-                          };
-                         let payload = {
-                            notification: {
-                              title: "NR Vegtable",
-                              body: "Your order is Approved.Please Accept the order"
+                          appUserRef.child(req.query.userId).on('value',function(snapshot){
+                            refreshtoken = snapshot.child('token').val();
+                               console.log("refreshtoken",refreshtoken);
+                               try{
+                                var response;
+                                    try{
+                                        const notification_options = {
+                                            priority: "high",
+                                            timeToLive: 60 * 60 * 24
+                                          };
+                                         let payload = {
+                                            notification: {
+                                              title: "NR Vegtable",
+                                              body: "Your order is Approved.Please Accept the order"
+                                            }
+                                          };                
+                               admin.messaging().sendToDevice(refreshtoken,payload, notification_options)
+                              .then( response => {
+                        
+                                response = {
+                                    message : response
+                                    };
+                                    res.send(response);
+                               
+                              })
+                              .catch( error => {
+                                  console.log(error);
+                              });
+                                    
+                                    }catch(e){
+                                         response = {
+                                            message : e
+                                            };
+                                            console.log(response)
+                                    }
+                                  
+                               
+                            }catch(e){
+                                console.log(e);
                             }
-                          };
-        
-                        const  registrationToken = refreshtoken
-                         const options =  notification_options
-            
-               admin.messaging().sendToDevice(registrationToken,payload, options)
-              .then( response => {
-        
-                response = {
-                    message : response
-                    };
-                    res.send(response);
-               
-              })
-              .catch( error => {
-                  console.log(error);
-              });
-                    
-                    }catch(e){
-                         response = {
-                            message : e
-                            };
-                            console.log(response)
-                    }
-                             })
-                         })
+                        });
                        //adminData itemlist amount update 
                         snapshot.child('ItemList').forEach((itemlist) => {
                             const weight=itemlist.child('weight').val();
@@ -431,13 +432,11 @@ server.use(cors());
         var appUserRef = dbf.ref("AppUsers")
         let refreshtoken;
         //admindata bill total and status  update
-        appUserRef.child(req.query.userId).once('value').then(function(snapshot) {
-           snapshot.forEach((snapshot) => {
-               refreshtoken = snapshot.child('token').val();
+        appUserRef.child(req.query.userId).on('value',function(snapshot){
+            refreshtoken = snapshot.child('token').val();
+               console.log("refreshtoken",refreshtoken);
                try{
                 var response;
-              
-            
                     try{
                         const notification_options = {
                             priority: "high",
@@ -446,16 +445,10 @@ server.use(cors());
                          let payload = {
                             notification: {
                               title: "NR Vegtable",
-                              body: "Your order is Accepted.Please Accept the order"
+                              body: "Your order is "+req.query.status
                             }
-                          };
-        
-                          console.log("refreshtoken",refreshtoken);
-    
-                        const  registrationToken = refreshtoken
-                         const options =  notification_options
-            
-               admin.messaging().sendToDevice(registrationToken,payload, options)
+                          };                
+               admin.messaging().sendToDevice(refreshtoken,payload, notification_options)
               .then( response => {
         
                 response = {
@@ -479,9 +472,7 @@ server.use(cors());
             }catch(e){
                 console.log(e);
             }
-           })
-       })
-
+        });
         var response;
          //admindata bill total and status  update
          var updatebill = {
@@ -521,92 +512,101 @@ server.use(cors());
         var adminRef=dbf.ref("AdminData");
         var appUserRef = dbf.ref("AppUsers")
          //admindata bill total and status  update
-         appUserRef.child(req.query.userId).once('value').then(function(snapshot) {
-            snapshot.forEach((snapshot) => {
-                if(snapshot != null){
-                    refreshtoken = snapshot.child('token').val();
-                    try{
-                        const notification_options = {
-                            priority: "high",
-                            timeToLive: 60 * 60 * 24
-                          };
-                         let payload = {
-                            notification: {
-                              title: "NR Vegtable",
-                              body: "Your Order is "+req.query.status
-                            }
-                          };
-        
-                        const  registrationToken = refreshtoken
-                         const options =  notification_options
-            
-               admin.messaging().sendToDevice(registrationToken,payload, options)
-              .then( response => {
-        
-                response = {
-                    message : response
-                    };
-                    res.send(response);
-               
-              })
-              .catch( error => {
-                  console.log(error);
-              });
-                    
-                    }catch(e){
+
+
+         appUserRef.child(req.query.userId).on('value',function(snapshot){
+
+            if(snapshot != null){
+                refreshtoken = snapshot.child('token').val();
+                console.log("refreshtoken",refreshtoken);
+                try{
+                 var response;
+                     try{
+                         const notification_options = {
+                             priority: "high",
+                             timeToLive: 60 * 60 * 24
+                           };
+                          let payload = {
+                             notification: {
+                               title: "NR Vegtable",
+                               body: "Your order is Approved.Please Accept the order"
+                             }
+                           };                
+                admin.messaging().sendToDevice(refreshtoken,payload, notification_options)
+               .then( response => {
+         
+                 response = {
+                     message : response
+                     };
+                     res.send(response);
+                
+               })
+               .catch( error => {
+                   console.log(error);
+               });
+                     
+                     }catch(e){
+                          response = {
+                             message : e
+                             };
+                             console.log(response)
+                     }
+                   
+                
+             }catch(e){
+                 console.log(e);
+             }
+            }else{
+                adminRef.child(req.query.userId).on('value',function(snapshot){
+
+                    if(snapshot != null){
+                        refreshtoken = snapshot.child('token').val();
+                        console.log("refreshtoken",refreshtoken);
+                        try{
+                         var response;
+                             try{
+                                 const notification_options = {
+                                     priority: "high",
+                                     timeToLive: 60 * 60 * 24
+                                   };
+                                  let payload = {
+                                     notification: {
+                                       title: "NR Vegtable",
+                                       body: "Your order is Approved.Please Accept the order"
+                                     }
+                                   };                
+                        admin.messaging().sendToDevice(refreshtoken,payload, notification_options)
+                       .then( response => {
+                 
                          response = {
-                            message : e
-                            };
-                            console.log(response)
-                    }
-                }else{
-                    adminRef.child(req.query.userId).once('value').then(function(snapshot) {
-                        snapshot.forEach((snapshot) => {
-                            if(snapshot != null){
-                                refreshtoken = snapshot.child('token').val();
-                                try{
-                                    const notification_options = {
-                                        priority: "high",
-                                        timeToLive: 60 * 60 * 24
-                                      };
-                                     let payload = {
-                                        notification: {
-                                          title: "NR Vegtable",
-                                          body: "Your Order is "+req.query.status
-                                        }
-                                      };
-                    
-                                    const  registrationToken = refreshtoken
-                                     const options =  notification_options
+                             message : response
+                             };
+                             res.send(response);
                         
-                           admin.messaging().sendToDevice(registrationToken,payload, options)
-                          .then( response => {
-                    
-                            response = {
-                                message : response
-                                };
-                                res.send(response);
+                       })
+                       .catch( error => {
+                           console.log(error);
+                       });
+                             
+                             }catch(e){
+                                  response = {
+                                     message : e
+                                     };
+                                     console.log(response)
+                             }
                            
-                          })
-                          .catch( error => {
-                              console.log(error);
-                          });
-                                
-                                }catch(e){
-                                     response = {
-                                        message : e
-                                        };
-                                        console.log(response)
-                                }
-                            }
-                        })
-                    })
-                }
-            })
-        })
-    
+                        
+                     }catch(e){
+                         console.log(e);
+                     }
+                    }else{
+                        
+                    }
+                    
+                });
+            }
             
-          
+        });          
        
     }catch(e){
         console.log(e);
