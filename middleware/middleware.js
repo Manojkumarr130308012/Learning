@@ -340,82 +340,82 @@ server.use(cors());
          console.log(req.query.orderId)
          console.log(req.query.userId)
 
-         adminRef.child('Billing').child(req.query.orderId).child('ItemList').once('value').then(function(snapshot){
-            snapshot.forEach((itemlist) => {
-                const weight=itemlist.child('weight').val();
-                var vegtableRef=dbf.ref("VegetableEntry/"+ itemlist.child('id').val());
-                vegtableRef.once('value').then(function(vegtablelist){
-                    const Price=vegtablelist.child('Rate').val();
-                    const totalstr = Price * weight;
-                    totalval = totalval + totalstr;
-                    var item = {
-                        rate : ""+totalstr
-                        };
-                    adminRef.child('Billing').child(req.query.orderId).child('ItemList').child(itemlist.key).update(item);
-                })
-            })
-         })
+        //  adminRef.child('Billing').child(req.query.orderId).child('ItemList').once('value').then(function(snapshot){
+        //     snapshot.forEach((itemlist) => {
+        //         const weight=itemlist.child('weight').val();
+        //         var vegtableRef=dbf.ref("VegetableEntry/"+ itemlist.child('id').val());
+        //         vegtableRef.once('value').then(function(vegtablelist){
+        //             const Price=vegtablelist.child('Rate').val();
+        //             const totalstr = Price * weight;
+        //             totalval = totalval + totalstr;
+        //             var item = {
+        //                 rate : ""+totalstr
+        //                 };
+        //             adminRef.child('Billing').child(req.query.orderId).child('ItemList').child(itemlist.key).update(item);
+        //         })
+        //     })
+        //  })
 
-         //admindata history  itemlist amount update
-         adminRef.child('History').child(req.query.orderId).child('ItemList').once('value').then(function(snapshot) {
-            snapshot.forEach((historyitem) => {
-            const weight=historyitem.child('weight').val();
-            var vegtableRef=dbf.ref("VegetableEntry/"+ historyitem.child('id').val());
-            vegtableRef.once('value').then(function(vegtablelist){
-                const Price=vegtablelist.child('Rate').val();
-                const totalstr = Price * weight;
-                totalval = totalval + totalstr;
-                var item = {
-                    rate : ""+totalstr
-                    };
-                adminRef.child('History').child(req.query.orderId).child('ItemList').child(historyitem.key).update(item);
-            })
-         })
-        })
+        //  //admindata history  itemlist amount update
+        //  adminRef.child('History').child(req.query.orderId).child('ItemList').once('value').then(function(snapshot) {
+        //     snapshot.forEach((historyitem) => {
+        //     const weight=historyitem.child('weight').val();
+        //     var vegtableRef=dbf.ref("VegetableEntry/"+ historyitem.child('id').val());
+        //     vegtableRef.once('value').then(function(vegtablelist){
+        //         const Price=vegtablelist.child('Rate').val();
+        //         const totalstr = Price * weight;
+        //         totalval = totalval + totalstr;
+        //         var item = {
+        //             rate : ""+totalstr
+        //             };
+        //         adminRef.child('History').child(req.query.orderId).child('ItemList').child(historyitem.key).update(item);
+        //     })
+        //  })
+        // })
 
 
-        // consumer itemlist
-        billingRef.child(req.query.userId).child(req.query.orderId).child('ItemList').once('value').then(function(snapshot) {
-            snapshot.forEach((historyitem) => {
-            const weight=historyitem.child('weight').val();
-            var vegtableRef=dbf.ref("VegetableEntry/"+ historyitem.child('id').val());
-            vegtableRef.once('value').then(function(vegtablelist){
-                const Price=vegtablelist.child('Rate').val();
-                const totalstr = Price * weight;
-                totalval = totalval + totalstr;
-                console.log("weight",weight);
-                var item = {
-                    rate : ""+totalstr
-                    };
-                 billingRef.child(req.query.userId).child(req.query.orderId).child('ItemList').child(historyitem.key).update(item);
-            })
-         })
+        // // consumer itemlist
+        // billingRef.child(req.query.userId).child(req.query.orderId).child('ItemList').once('value').then(function(snapshot) {
+        //     snapshot.forEach((historyitem) => {
+        //     const weight=historyitem.child('weight').val();
+        //     var vegtableRef=dbf.ref("VegetableEntry/"+ historyitem.child('id').val());
+        //     vegtableRef.once('value').then(function(vegtablelist){
+        //         const Price=vegtablelist.child('Rate').val();
+        //         const totalstr = Price * weight;
+        //         totalval = totalval + totalstr;
+        //         console.log("weight",weight);
+        //         var item = {
+        //             rate : ""+totalstr
+        //             };
+        //          billingRef.child(req.query.userId).child(req.query.orderId).child('ItemList').child(historyitem.key).update(item);
+        //     })
+        //  })
 
-         if(totalval > 200){
-            totalval = totalval;
-         }else{
-            totalval=totalval - 30 + 50;
-         }
+        //  if(totalval > 200){
+        //     totalval = totalval;
+        //  }else{
+        //     totalval=totalval - 30 + 50;
+        //  }
 
-         //admindata bill total and status  update
-          var updatebill = {
-            TotalRate : ""+totalval,
-            orderstate : req.query.status
-            };
+        //  //admindata bill total and status  update
+        //   var updatebill = {
+        //     TotalRate : ""+totalval,
+        //     orderstate : req.query.status
+        //     };
 
-           adminRef.child('Billing').child(req.query.orderId).child('Bill').update(updatebill);
+        //    adminRef.child('Billing').child(req.query.orderId).child('Bill').update(updatebill);
 
-           adminRef.child('History').child(req.query.orderId).child('Bill').update(updatebill);
+        //    adminRef.child('History').child(req.query.orderId).child('Bill').update(updatebill);
 
-           billingRef.child(req.query.userId).child(req.query.orderId).child('Bill').update(updatebill);
+        //    billingRef.child(req.query.userId).child(req.query.orderId).child('Bill').update(updatebill);
 
-           var response = {
-            message : "updated successfully"
-            };
+        //    var response = {
+        //     message : "updated successfully"
+        //     };
     
-        res.send(response);
+        // res.send(response);
          
-        })     
+        // })     
 
         }catch(e){
             console.log(e);
