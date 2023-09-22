@@ -529,7 +529,7 @@ server.use(cors());
                           let payload = {
                              notification: {
                                title: "NR Vegtable",
-                               body: "Your order is Approved.Please Accept the order"
+                               body: "Your order is "+req.query.status
                              }
                            };                
                 admin.messaging().sendToDevice(refreshtoken,payload, notification_options)
@@ -572,7 +572,7 @@ server.use(cors());
                                   let payload = {
                                      notification: {
                                        title: "NR Vegtable",
-                                       body: "Your order is Approved.Please Accept the order"
+                                       body: "Your order is "+req.query.status
                                      }
                                    };                
                         admin.messaging().sendToDevice(refreshtoken,payload, notification_options)
