@@ -291,6 +291,12 @@ server.use(cors());
             var appUserRef = dbf.ref("AppUsers")
             let refreshtoken;
             //admindata bill total and status  update
+            appUserRef.child(req.query.userId).on('value',function(snapshot){
+                refreshtoken = snapshot.child('token').val();
+                   console.log("refreshtoken",refreshtoken);
+            });
+
+
             console.log("testning",appUserRef.child(req.query.userId).child('token').getValue().toString());
             appUserRef.child(req.query.userId).once('value').then(function(snapshot) {
                snapshot.forEach((snapshot) => {
