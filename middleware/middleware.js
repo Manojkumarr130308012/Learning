@@ -618,6 +618,7 @@ const userRouter = require('./../router/user');
 const adminRouter = require('./../router/admin');
 const categoryRouter = require('./../router/category');
 const ordersRouter = require('./../router/orders');
+const VechicleStockRouter = require('./../router/vechiclestock');
 
 // var dbf=admin.database();
 // var userRef=dbf.ref("AppUsers");
@@ -649,6 +650,7 @@ server.use("/user", userRouter);
 server.use("/admin", adminRouter);
 server.use("/category", categoryRouter);
 server.use("/orders", ordersRouter);
+server.use("/vechiclestock", VechicleStockRouter);
 
 
 server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
