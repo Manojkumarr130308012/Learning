@@ -5,10 +5,10 @@ const vechicleController = require('../controller/vechiclestock');
 router.post('/add', async (req, res) => {
     res.send(await vechicleController.add(req.body));
 });
-router.get('/order', async (req, res) => {
+router.get('/vechicle', async (req, res) => {
     res.send(await vechicleController.fetch(req.body));
 });
-router.get('/fetchlorders', async (req, res) => {
+router.get('/fetchvechicle', async (req, res) => {
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	const response = await vechicleController.fetchdata(req.query.id);
 	res.send(response);
