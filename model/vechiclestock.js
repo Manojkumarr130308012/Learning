@@ -14,7 +14,15 @@ const vechicleSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
+    Email: {
+        type: String,
+        required: false,
+    },
     Address: {
+        type: String,
+        required: false,
+    },
+    Gender: {
         type: String,
         required: false,
     },
