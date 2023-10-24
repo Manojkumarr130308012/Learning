@@ -10,35 +10,35 @@ const vechicleSchema = new mongoose.Schema({
         type:String,
         required: false,
     },
-    Name: {
+    Celler_Name: {
         type: String,
         required: false,
     },
-    Email: {
+    Celler_Email: {
         type: String,
         required: false,
     },
-    Address: {
+    Celler_Address: {
         type: String,
         required: false,
     },
-    Gender: {
+    Celler_Gender: {
         type: String,
         required: false,
     },
-    Aadhaar_number: {
+    Celler_Aadhaar_number: {
         type: String,
         required: false,
     }, 
-    Customer_cell_no: {
+    Celler_cell_no: {
         type: String,
         required: false,
     },
-    Introducer_name: {
+    Celler_Introducer_name: {
         type: String,
         required: false,
     },
-    Introducer_cell_no: {
+    Celler_Introducer_cell_no: {
         type: String,
         required: false,
     },
@@ -66,15 +66,15 @@ const vechicleSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
-    Total_amt: {
+    Celler_Total_amt: {
         type: String,
         required: false,
     },
-    Advanced_amt: {
+    Celler_Advanced_amt: {
         type: String,
         required: false,
     },
-    Balance_amt: {
+    Celler_Balance_amt: {
         type: String,
         required: false,
     },
@@ -94,6 +94,62 @@ const vechicleSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
+    Celler_Signature: {
+        type: String,
+        required: false,
+    },
+    Celler_Aadhaar_photo: {
+        type: String,
+        required: false,
+    },
+    Vechicle_type: {
+        type: String,
+        required: false,
+    }, 
+    Customer_Name: {
+        type: String,
+        required: false,
+    },
+    Customer_Email: {
+        type: String,
+        required: false,
+    },
+    Customer_Address: {
+        type: String,
+        required: false,
+    },
+    Customer_Gender: {
+        type: String,
+        required: false,
+    },
+    Customer_Aadhaar_number: {
+        type: String,
+        required: false,
+    }, 
+    Customer_cell_no: {
+        type: String,
+        required: false,
+    },
+    Customer_Introducer_name: {
+        type: String,
+        required: false,
+    },
+    Customer_Introducer_cell_no: {
+        type: String,
+        required: false,
+    },
+    Customer_Total_amt: {
+        type: String,
+        required: false,
+    },
+    Customer_Advanced_amt: {
+        type: String,
+        required: false,
+    },
+    Customer_Balance_amt: {
+        type: String,
+        required: false,
+    },
     Customer_Signature: {
         type: String,
         required: false,
@@ -102,10 +158,6 @@ const vechicleSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
-    Vechicle_type: {
-        type: String,
-        required: false,
-    }
 });
 
 module.exports = new mongoose.model('vechiclestock', vechicleSchema);
