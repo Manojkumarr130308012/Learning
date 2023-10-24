@@ -30,6 +30,9 @@ router.get('/vechiclestate', async (req, res) => {
     res.send(await vechicleController.orderfetch());
 });
 
+router.get('/vechiclestatecount', async (req, res) => {
+    res.send(await vechicleController.fetchdatabystatuscount());
+});
 
 
 module.exports = router;

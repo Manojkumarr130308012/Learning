@@ -60,6 +60,31 @@ class VechicleController {
 		}
 	}
 
+
+	async fetchdatabystatuscount(){
+		try{
+			let vechiclestock = await vechicleSchema.find({Vechicle_type:"Stocks"});
+			let vechiclestockcount=Object.keys(vechiclestock).length;
+			let vechicleretail = await vechicleSchema.find({Vechicle_type:"Retail"});
+			let vechicleretailcount=Object.keys(vechicleretail).length;
+			let vechiclenewstock = await vechicleSchema.find({Vechicle_type:"NewStocks"});
+			let vechiclenewstockcount=Object.keys(vechiclenewstock).length;
+			let vechiclenewretail = await vechicleSchema.find({Vechicle_type:"NewRetail"});
+			let vechiclenewretailcount=Object.keys(vechiclenewretail).length;
+			return {
+				vechiclestock: vechiclestockcount,
+				vechicleretail:vechicleretailcount,
+				vechiclenewstock:vechiclenewstockcount,
+				vechiclenewretail:vechiclenewretailcount
+			};	
+		} catch(error){
+			return {
+				status: "error",
+				error: errorHandler.parseMongoError(error)
+			};
+		}
+	}
+
 	async delete(id){
 		try{
 			let response = await vechicleSchema.deleteOne({_id: id});
