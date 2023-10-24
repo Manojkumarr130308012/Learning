@@ -50,7 +50,7 @@ class VechicleController {
 
 	async fetchdatabystatus(status){
 		try{
-			let response = await vechicleSchema.find({Vechicle_type:id});
+			let response = await vechicleSchema.find({Vechicle_type:status});
 			return response;	
 		} catch(error){
 			return {
