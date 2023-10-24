@@ -12,7 +12,12 @@ router.get('/fetchvechicle', async (req, res) => {
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	const response = await vechicleController.fetchdata(req.query.id);
 	res.send(response);
-})
+});
+router.get('/fetchvechiclebystatus', async (req, res) => {
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	const response = await vechicleController.fetchdatabystatus(req.query.status);
+	res.send(response);
+});
 router.delete('/delete', async (req, res) => {
 	const response = await vechicleController.delete(req.query.id);
 	res.send(response);

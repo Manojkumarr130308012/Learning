@@ -47,6 +47,19 @@ class VechicleController {
 		}
 	}
 
+
+	async fetchdatabystatus(status){
+		try{
+			let response = await vechicleSchema.find({Vechicle_type:id});
+			return response;	
+		} catch(error){
+			return {
+				status: "error",
+				error: errorHandler.parseMongoError(error)
+			};
+		}
+	}
+
 	async delete(id){
 		try{
 			let response = await vechicleSchema.deleteOne({_id: id});
