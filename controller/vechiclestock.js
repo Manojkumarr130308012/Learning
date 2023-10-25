@@ -85,6 +85,25 @@ class VechicleController {
 
 			let vechiclestockmonth = await vechicleSchema.find({Vechicle_type:"Stocks",month:month1});
 			let vechiclestockmonthcount=Object.keys(vechiclestockmonth).length;
+
+			let vechicleRetailyear = await vechicleSchema.find({Vechicle_type:"Retail",year:year1});
+			let vechicleRetailyearcount=Object.keys(vechicleRetailyear).length;
+
+			let vechicleRetailmonth = await vechicleSchema.find({Vechicle_type:"Retail",month:month1});
+			let vechicleRetailmonthcount=Object.keys(vechicleRetailmonth).length;
+
+			let vechicleNewStocksyear = await vechicleSchema.find({Vechicle_type:"NewStocks",year:year1});
+			let vechicleNewStocksyearcount=Object.keys(vechicleNewStocksyear).length;
+
+			let vechicleNewStocksmonth = await vechicleSchema.find({Vechicle_type:"NewStocks",month:month1});
+			let vechicleNewStocksmonthcount=Object.keys(vechicleNewStocksmonth).length;
+
+			let vechicleNewRetailyear = await vechicleSchema.find({Vechicle_type:"NewRetail",year:year1});
+			let vechicleNewRetailyearcount=Object.keys(vechicleNewRetailyear).length;
+
+			let vechicleNewRetailmonth = await vechicleSchema.find({Vechicle_type:"NewRetail",month:month1});
+			let vechicleNewRetailmonthcount=Object.keys(vechicleNewRetailmonth).length;
+			
 			
 			return {
 				vechiclestock: vechiclestockcount,
@@ -92,7 +111,13 @@ class VechicleController {
 				vechiclenewstock:vechiclenewstockcount,
 				vechiclenewretail:vechiclenewretailcount,
 				vechiclestockyearcount:vechiclestockyearcount,
-				vechiclestockmonthcount:vechiclestockmonthcount
+				vechiclestockmonthcount:vechiclestockmonthcount,
+				vechicleRetailyearcount:vechicleRetailyearcount,
+				vechicleRetailmonthcount:vechicleRetailmonthcount,
+				vechicleNewStocksyearcount:vechicleNewStocksyearcount,
+				vechicleNewStocksmonthcount:vechicleNewStocksmonthcount,
+				vechicleNewRetailyearcount:vechicleNewRetailyearcount,
+				vechicleNewRetailmonthcount:vechicleNewRetailmonthcount
 			};	
 		} catch(error){
 			return {
