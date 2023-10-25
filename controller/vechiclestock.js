@@ -76,12 +76,19 @@ class VechicleController {
             var day = currentTime.getDate()
             var year = currentTime.getFullYear()
 
+			let vechiclestockyear = await vechicleSchema.find({Vechicle_type:"Stocks",year:year});
+			let vechiclestockyearcount=Object.keys(vechiclestockyear).length;
+
+			let vechiclestockmonth = await vechicleSchema.find({Vechicle_type:"Stocks",month:month});
+			let vechiclestockmonthcount=Object.keys(vechiclestockmonth).length;
 			
 			return {
 				vechiclestock: vechiclestockcount,
 				vechicleretail:vechicleretailcount,
 				vechiclenewstock:vechiclenewstockcount,
-				vechiclenewretail:vechiclenewretailcount
+				vechiclenewretail:vechiclenewretailcount,
+				vechiclestockyearcount:vechiclestockyearcount,
+				vechiclestockmonthcount:vechiclestockmonthcount
 			};	
 		} catch(error){
 			return {
