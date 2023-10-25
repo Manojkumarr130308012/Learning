@@ -72,23 +72,27 @@ class VechicleController {
 			let vechiclenewretail = await vechicleSchema.find({Vechicle_type:"NewRetail"});
 			let vechiclenewretailcount=Object.keys(vechiclenewretail).length;
 
+
+			const date = new Date();
+			const year = date.getFullYear();
+			let month = date.getMonth() + 1;
 			// var month = currentTime.getMonth() + 1
             // var day = currentTime.getDate()
             // var year = currentTime.getFullYear()
 
-			// let vechiclestockyear = await vechicleSchema.find({Vechicle_type:"Stocks",year:year});
-			// let vechiclestockyearcount=Object.keys(vechiclestockyear).length;
+			let vechiclestockyear = await vechicleSchema.find({Vechicle_type:"Stocks",year:year});
+			let vechiclestockyearcount=Object.keys(vechiclestockyear).length;
 
-			// let vechiclestockmonth = await vechicleSchema.find({Vechicle_type:"Stocks",month:month});
-			// let vechiclestockmonthcount=Object.keys(vechiclestockmonth).length;
+			let vechiclestockmonth = await vechicleSchema.find({Vechicle_type:"Stocks",month:month});
+			let vechiclestockmonthcount=Object.keys(vechiclestockmonth).length;
 			
 			return {
 				vechiclestock: vechiclestockcount,
 				vechicleretail:vechicleretailcount,
 				vechiclenewstock:vechiclenewstockcount,
 				vechiclenewretail:vechiclenewretailcount,
-				// vechiclestockyearcount:vechiclestockyearcount,
-				// vechiclestockmonthcount:vechiclestockmonthcount
+				vechiclestockyearcount:vechiclestockyearcount,
+				vechiclestockmonthcount:vechiclestockmonthcount
 			};	
 		} catch(error){
 			return {
