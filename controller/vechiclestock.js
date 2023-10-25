@@ -72,9 +72,9 @@ class VechicleController {
 			let vechiclenewretail = await vechicleSchema.find({Vechicle_type:"NewRetail"});
 			let vechiclenewretailcount=Object.keys(vechiclenewretail).length;
 
-			var month = currentTime.getMonth() + 1
-            var day = currentTime.getDate()
-            var year = currentTime.getFullYear()
+			// var month = currentTime.getMonth() + 1
+            // var day = currentTime.getDate()
+            // var year = currentTime.getFullYear()
 
 			// let vechiclestockyear = await vechicleSchema.find({Vechicle_type:"Stocks",year:year});
 			// let vechiclestockyearcount=Object.keys(vechiclestockyear).length;
