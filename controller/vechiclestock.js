@@ -75,7 +75,7 @@ class VechicleController {
 
 			const date = new Date();
 			const year1 = date.getFullYear();
-			const month1 = date.getMonth() + 1;
+			const month1 = date.getMonth()+1;
 			// var month = currentTime.getMonth() + 1
             // var day = currentTime.getDate()
             // var year = currentTime.getFullYear()
