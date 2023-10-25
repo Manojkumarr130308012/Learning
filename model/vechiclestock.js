@@ -158,6 +158,22 @@ const vechicleSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
+    Celling_year: {
+        type: String,
+        required: false,
+    },
+    Celling_month: {
+        type: String,
+        required: false,
+    },
+    year: {
+        type: String,
+        required: false,
+    },
+    month: {
+        type: String,
+        required: false,
+    },
 });
 
 module.exports = new mongoose.model('vechiclestock', vechicleSchema);
