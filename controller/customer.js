@@ -89,8 +89,8 @@ class CustomerController {
 
             }else{
                 response = await customerSchema.create(farm);
+                console.log("user",response);
             }
-            console.log("user",response);
 
 			return { status: "success",   msg:"User Added successfully", result: response, message: "Added Successfully" };
 		} catch(error){
