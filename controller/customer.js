@@ -85,7 +85,7 @@ class CustomerController {
             });
 
             console.log("user",user);
-            if(!user){
+            if(user != null){
 
             }else{
                 response = await customerSchema.create(farm);
