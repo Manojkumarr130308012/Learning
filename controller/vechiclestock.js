@@ -72,9 +72,9 @@ class VechicleController {
 			let vechiclenewstockcount=Object.keys(vechiclenewstock).length;
 			let vechiclenewretail = await vechicleSchema.find({Vechicle_type:"NewRetail"});
 			let vechiclenewretailcount=Object.keys(vechiclenewretail).length;
-			let vechiclecelling = await customerSchema.find({Vechicle_type:"Celling"});
+			let vechiclecelling = await customerSchema.find({usertype:"Celling"});
 			let vechiclecellingcount=Object.keys(vechiclecelling).length;
-			let vechiclebuying = await customerSchema.find({Vechicle_type:"Buying"});
+			let vechiclebuying = await customerSchema.find({usertype:"Buying"});
 			let vechiclebuyingcount=Object.keys(vechiclebuying).length;
 			const date = new Date();
 			const year1 = date.getFullYear();
