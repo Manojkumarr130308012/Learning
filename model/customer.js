@@ -17,6 +17,10 @@ const customerSchema = new mongoose.Schema({
     aadhercard: {
         type: String,
         required: false,
+    },
+    usertype: {
+        type: String,
+        required: false,
     }
 });
 

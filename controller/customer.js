@@ -79,7 +79,16 @@ class CustomerController {
 
     async add(farm){
 		try{
-			let response = await customerSchema.create(farm);
+            let response;
+            let user = await customerSchema.findOne({
+                phone: farm.phone
+            });
+
+            if(!user){
+
+            }else{
+                response = await customerSchema.create(farm);
+            }
 			return { status: "success",   msg:"User Added successfully", result: response, message: "Added Successfully" };
 		} catch(error){
 			return {
@@ -156,6 +165,23 @@ class CustomerController {
 		try{
 			let response = await customerSchema.find({_id:id});
 			return response;	
+		} catch(error){
+			return {
+				status: "error",
+				error: errorHandler.parseMongoError(error)
+			};
+		}
+	}
+
+
+    async fetchtype(type){
+		try{
+			let response = await customerSchema.find({usertype:type});
+			let count=Object.keys(response).length;
+			return {
+				response: response,
+				count:count
+			};	
 		} catch(error){
 			return {
 				status: "error",
