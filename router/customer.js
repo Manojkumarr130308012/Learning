@@ -22,6 +22,9 @@ router.get('/fetchlusers', async (req, res) => {
 	const response = await customerController.fetchdata(req.query.id);
 	res.send(response);
 })
+router.post('/add', async (req, res) => {
+    res.send(await customerController.add(req.body));
+});
 router.get('/fetchlusertype', async (req, res) => {
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	const response = await customerController.fetchtype(req.query.usertype);
