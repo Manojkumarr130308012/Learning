@@ -84,11 +84,14 @@ class CustomerController {
                 phone: farm.phone
             });
 
+            console.log("user",user);
             if(!user){
 
             }else{
                 response = await customerSchema.create(farm);
             }
+            console.log("user",response);
+
 			return { status: "success",   msg:"User Added successfully", result: response, message: "Added Successfully" };
 		} catch(error){
 			return {
