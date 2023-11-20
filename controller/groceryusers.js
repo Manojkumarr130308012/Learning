@@ -7,7 +7,7 @@ class GroceryUserController {
     async add(farm){
 		try{
 			let response = await groceryusersSchema.create(farm);
-			return { status: "success",   msg:"orders Added successfully", result: response, message: "Added Successfully" };
+			return { status: "success",   msg:"Users Added successfully", result: response, message: "Added Successfully" };
 		} catch(error){
 			return {
 				status: "error",
@@ -100,6 +100,32 @@ class GroceryUserController {
 		}
 	}
   
+	async login(responce){
+        let name=responce.name;
+        let password=responce.password;
+        try{
+            let user = await groceryusersSchema.findOne({
+                name: name,
+                password: password,
+            });
+
+            if(!user){
+                throw new Error('invalid creds');
+            }
+
+            return {
+                status: "1",
+                msg: "Login Sucessfully",
+                user
+            };
+
+        } catch(error){
+            return {
+                status: '0',
+                msg: 'username or password invalid'
+            }
+        }
+    }
 
 	
 }

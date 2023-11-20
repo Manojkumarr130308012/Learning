@@ -21,7 +21,9 @@ router.put('/update', async (req, res) => {
 	const response = await groceryuserController.update(req.query.id, req.body);
 	res.send(response);
 })
-
+router.post('/login', async (req, res) => {
+    res.send(await groceryuserController.login(req.body));
+});
 
 
 
