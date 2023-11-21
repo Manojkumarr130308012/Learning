@@ -622,6 +622,8 @@ const VechicleStockRouter = require('./../router/vechiclestock');
 const customerRouter = require('./../router/customer');
 const groceryusersRouter = require('./../router/groceryusers');
 const grocerycategoryRouter = require('./../router/grocerycatecory');
+const groceryproductRouter = require('./../router/groceryproducts');
+
 // var dbf=admin.database();
 // var userRef=dbf.ref("AppUsers");
 
@@ -656,6 +658,7 @@ server.use("/vechiclestock", VechicleStockRouter);
 server.use("/customer", customerRouter);
 server.use("/groceryusers", groceryusersRouter);
 server.use("/grocerycategory", grocerycategoryRouter);
+server.use("/groceryproduct", groceryproductRouter);
 
 
 server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
