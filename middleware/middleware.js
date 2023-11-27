@@ -658,7 +658,7 @@ server.use("/vechiclestock", VechicleStockRouter);
 server.use("/customer", customerRouter);
 server.use("/groceryusers", groceryusersRouter);
 server.use("/grocerycategory", grocerycategoryRouter);
-server.use("/groceryproduct", groceryproductRouter);
+// server.use("/groceryproduct", groceryproductRouter);
 
 
 server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
