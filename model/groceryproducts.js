@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const groceryproductSchema = new mongoose.Schema({
     category: {
         type: mongoose.Schema.ObjectId,
-        required: true
+        required: false
     },
     name: {
         type: String,
