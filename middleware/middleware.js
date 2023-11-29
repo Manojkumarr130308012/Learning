@@ -659,11 +659,4 @@ server.use("/grocerycategory", grocerycategoryRouter);
 server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
-
-
-
-
-
-// server.use("/states", statesRouter);
-// server.use("/citys", cityRouter);
 module.exports= server;
