@@ -643,7 +643,6 @@ mongoose.connect(db, {
         console.log('connected to the database',db);
         }
 	});
-	//locationdata
 
 server.use("/user", userRouter);
 server.use("/admin", adminRouter);
